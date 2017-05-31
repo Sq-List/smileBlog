@@ -1,0 +1,265 @@
+.main-textarea{
+	/*background-color: #F0F0F0;*/
+	width: 100%;
+	float: left;
+	height: auto!important;
+	min-height: 610px;
+	margin-top: 54px;
+	text-align: center;
+	position: relative;
+}
+
+.main-picture{
+	width: 80%;
+	position: fixed;
+	left: 270px;
+	z-index: 0;
+	top:54px;
+	opacity: 0.5;
+}
+
+.textcontent{
+	width: 80%;
+	min-height: 610px;
+	/*text-align: center;*/
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	opacity: 1;
+	color: #fff;
+	/*margin:0px auto;*/
+}
+
+.textcontent div{
+	margin-top: 10px;
+}
+
+.text-title{
+	font-size: 2.5em;
+	text-align: left;
+	width: 100%;
+}
+
+.text-date{
+	text-align: left;
+	float: left;
+	width: 15%;
+	height: 40px;
+	line-height: 40px;
+}
+
+#text-like{
+	float: left;
+	width: 85%;
+	text-align: left;
+	font-size: 1.3em;
+	height: 40px;
+	line-height: 40px;
+	color: #FFFFFF;
+}
+
+.text-area{
+	min-height: 350px;
+	width: 100%;
+	text-align: left;
+	line-height: 30px;
+}
+
+.text-keywords{
+	text-align: left;
+}
+.text-previous{
+	float: left;
+	font-size: 1.3em;
+}
+
+.text-next{
+	float: right;
+	font-size: 1.3em;
+}
+
+/*#personal-date{
+	z-index: 5;
+	width: 500px;
+	height: 300px;
+	background-color: #e6e6e6;
+	left: 500px;
+	top: 200px;
+	color: #000000;
+	position: fixed;
+	display: block;
+}
+
+.personal-headpicture {
+	width:150px;
+	height: 300px;
+	float: left;
+	background-color: #fff;
+    overflow: hidden;
+}
+
+.personal-headpicture img{
+	width:100px;
+	height: 100px;
+	border-radius: 100px;
+	margin-top: 40px;
+}
+
+#change-headpicture{
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #6C6C6C;
+	margin-top: 40px;
+	margin-left: 25px; 
+	color: #FFFFFF;
+}
+.personal-name{
+	width: 349px;
+	height: 50px;
+	line-height: 50px;
+	float: left;
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+.personal-lable{
+	width: 349px;
+	height: 120px;
+	float: left;
+	text-align: center;
+}
+
+.personal-name div:nth-child(1),.personal-lable div:nth-child(1){
+	width: 50px;
+	float: left;
+	margin-left: 50px;
+	margin-right: 20px;
+}
+
+.personal-name div:nth-child(2){
+	width: 150px;
+	float: left;
+	border: 0px;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 10px;
+	text-align: left;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.personal-lable div:nth-child(2){
+	width: 200px;
+	float: left;
+	border: 0px;
+	height: 100px;
+	margin-top: 0px;
+	text-align: left;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+#personal-date input{
+	border: 0px;
+	background-color: #6C6C6C;
+	color: #ffffff;
+	height: 30px;
+	width: 50px;
+	margin-left: 20px;
+}*/
+
+#personal-date{
+	z-index: 5;
+	width: 500px;
+	height: 500px;
+	border-radius: 100%;
+	background-color: #e6e6e6;
+	box-shadow: 10px 20px 10px #000000;
+	left: 500px;
+	top: 100px;
+	color: #000000;
+	position: fixed;
+	display: block;
+}
+
+.personal-headpicture {
+	width:100%;
+	height: 45%;
+	/*float: left;*/
+	/*background-color: #fff;*/
+    overflow: hidden;
+}
+
+.personal-headpicture img{
+	width:100px;
+	height: 100px;
+	border-radius: 100px;
+	margin-top: 40px;
+}
+
+#change-headpicture{
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #6C6C6C;
+	position: absolute;
+	left: 40%;
+	top: 35%;
+	/*transform: translate(-50%);*/
+	/*margin-top: 40px;
+	margin-left: 25px; */
+	color: #FFFFFF;
+}
+.personal-name{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	float: left;
+	text-align: center;
+	/*margin-top: 40px;
+	margin-bottom: 30px;*/
+}
+.personal-lable{
+	width: 100%;
+	height: 120px;
+	float: left;
+	text-align: center;
+}
+
+.personal-name div:nth-child(1),.personal-lable div:nth-child(1){
+	width: 50px;
+	float: left;
+	margin-left: 100px;
+	margin-right: 20px;
+}
+
+.personal-name div:nth-child(2){
+	width: 200px;
+	float: left;
+	border: 0px;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 10px;
+	text-align: left;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.personal-lable div:nth-child(2){
+	width: 250px;
+	float: left;
+	border: 0px;
+	height: 90px;
+	margin-top: 0px;
+	text-align: left;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+#personal-date input{
+	border: 0px;
+	background-color: #6C6C6C;
+	color: #ffffff;
+	height: 30px;
+	width: 50px;
+	margin-left: 20px;
+}
