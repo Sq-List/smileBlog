@@ -18,7 +18,7 @@ import java.sql.SQLException;
 //@WebServlet(name = "RegisterServlet")
 public class RegisterServlet extends HttpServlet
 {
-	UserDAO userDAO = new UserDAO();
+	private UserDAO userDAO = new UserDAO();
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
@@ -33,18 +33,19 @@ public class RegisterServlet extends HttpServlet
 		user.setNickname(nickname);
 		user.setHeadPic("../image/head-pic.jpg");
 
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+
 		try
 		{
 			userDAO.add(user);
+
+			out.write("<script language='javascript'>alert('registration success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			out.write("<script language='javascript'>alert('registration fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
 		}
-
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.write("<script language='javascript'>alert('registration success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

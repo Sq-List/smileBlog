@@ -154,23 +154,40 @@ login.onclick = function()
   }
 
   var $submitButton = $("<input>").attr({"type" : "button", "value" : "submit"});
-  $submitButton.click(function()
-  {
-    var bool = true;
-
-    if(bool)
-    {
-      $("#register").submit();
-    }
-  })
   var $cancleButton = $("<input>").attr({"type" : "button", "id" : "cancle", "value" : "cancle"});
-  $cancleButton.click(function()
-  {
-    $('#show').html(" ").hide();
-  })
+
   $newForm.append($("<br>"));
   $newForm.append($submitButton);
   $newForm.append($cancleButton);
+
+  $submitButton.click(function()
+  {
+    var bool = true;
+    if(!validateLoginUsername())
+    {
+      bool = false;
+    }
+    if(!validateLoginPassword())
+    {
+      bool = false;
+    }
+    if(!validateLoginVerifyCode())
+    {
+      bool = false;
+    }
+
+    if(bool)
+    {
+      $("form#login").submit();
+    }
+  });
+
+  $cancleButton.click(function()
+  {
+    $('#show').html(" ").hide();
+  });
+
+  setLoginBlur();
 }
 
 function showwords(obj){
@@ -196,6 +213,19 @@ function setRegisterBlur()
   })
 }
 
+function setLoginBlur()
+{
+  // 输入框失去焦点时候进行检验
+  $('input[name]').blur(function()
+  {
+    var id = $(this).attr("id");
+    //得到对应的校验函数名
+    var funName = "validateLogin" + id.substring(0,1).toUpperCase() + id.substring(1) + "()";
+    //执行函数调用
+    eval(funName);
+  })
+}
+
 function _hyz()
 {
   var img = document.getElementById("imgVerifyCode");
@@ -204,7 +234,84 @@ function _hyz()
 }
 
 // 登陆时候的检验方法
+// username检验方法
+function validateLoginUsername()
+{
+  var id = 'username';
+  var $username = $('#' + id).val();
+  var $validate = $('#' + id + 'Error').css('visibility', 'visible');
 
+  /**
+   * 非空检验
+   */
+  if(!$username)
+  {
+    $validate.text('username has not been empty!');
+    return false;
+  }
+
+  $validate.text('').css('visibility', 'hidden');
+  return true;
+}
+
+// password检验方法
+function validateLoginPassword()
+{
+  var id = 'password';
+  var $password = $('#' + id).val();
+  var $validate = $('#' + id + 'Error').css('visibility', 'visible');
+
+  /**
+   * 非空检验
+   */
+  if(!$password)
+  {
+    $validate.text('password has not been empty!');
+    return false;
+  }
+
+  $validate.text('').css('visibility', 'hidden');
+  return true;
+}
+
+// 验证码检验
+function validateLoginVerifyCode()
+{
+  var id = "verifyCode";
+  var $verifyCode = $('#' + id).val();
+  var $validate = $('#' + id + 'Error').css('visibility', 'visible');
+
+  /**
+   * 非空检验
+   */
+  if(!$verifyCode)
+  {
+    $validate.text('verifyCode has not been empty!');
+    return false;
+  }
+
+  $.ajax(
+    {
+      type : "POST",
+      url : "../AjaxValidateVerifyCodeServlet",
+      datatype : "json",
+      data : "verifyCode=" + $verifyCode,
+
+      success : function(result)
+      {
+        result = eval(result);
+        if(!result)
+        {
+          $validate.text('verifyCode is wrong!');
+          return false;
+        }
+      }
+    }
+  )
+
+  $validate.text('').css('visibility', 'hidden');
+  return true;
+}
 
 // 注册时候的检验方法
 // username检验方法

@@ -1,22 +1,30 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>owner</title>
-	<link rel="stylesheet" type="text/css" href="../css/owner.css">
-	<link rel="stylesheet" type="text/css" href="../css/container.css">
+	<link rel="stylesheet" type="text/css" href="./css/owner.css">
+	<link rel="stylesheet" type="text/css" href="./css/container.css">
 </head>
+<c:choose>
+	<c:when test="${empty sessionScope.user }">
+		<c:redirect url="./home.jsp"></c:redirect>
+	</c:when>
+</c:choose>
 <body>
 <div class="container">
 	<div class="menu">
 		<h3>HOME</h3>
 		<div class="menu-headpicture">
-			<img src="../image/polygon.jpg">
+			<img src="${user.headPic}">
 		</div>
 		<br>
 		<div class="menu-personmessage">
-			<div>A七</div>
-			<div>for better</div>
+			<div>${user.nickname}</div>
+			<div>${user.lable}</div>
 		</div>
 		<div class="menu-list">
 			<ul>
@@ -38,25 +46,25 @@
 		</div>
 		<div class="main-textarea">
 			<div class="owner">
-				<img src="../image/screen.jpg">
+				<img src="./image/screen.jpg">
 			</div>
 			<div id="write"></div>
 			<div class="text1">
-				<img src="../image/text1.jpg"></img>
+				<img src="./image/text1.jpg"></img>
 				<div class="title">
 					<div class="time">2017-5-12</div>
 					<div class="titlename">Dream</div>
 				</div>
 			</div>
 			<div class="text1">
-				<img src="../image/1.jpg"></img>
+				<img src="./image/1.jpg"></img>
 				<div class="title">
 					<div class="time">2017-5-11</div>
 					<div class="titlename">Music</div>
 				</div>
 			</div>
 			<div class="text1">
-				<img src="../image/2.jpg"></img>
+				<img src="./image/2.jpg"></img>
 				<div class="title">
 					<div class="time">2017-5-10</div>
 					<div class="titlename">Life</div>
@@ -65,7 +73,7 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="../js/owner.js"></script>
-<script type="text/javascript" src="../js/search.js"></script>
+<script type="text/javascript" src="./js/owner.js"></script>
+<script type="text/javascript" src="./js/search.js"></script>
 </body>
 </html>

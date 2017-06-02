@@ -78,6 +78,7 @@ public class UserDAO
 		return new String(resultCharArray);
 	}
 
+//	添加用户
 	public void add(User user) throws SQLException
 	{
 		String sql = "INSERT INTO `user`(`username`, `password`, `nickname`, `head-pic`) VALUES (?, ?, ?, ?);";
@@ -89,8 +90,35 @@ public class UserDAO
 		ps.executeUpdate();
 	}
 
-//	public
+//	通过用户名和密码查找用户
+	public User selectByUsernameAndPassword(String username, String password) throws SQLException
+	{
+		String sql = "SELECT * FROM user WHERE username = ? AND password = ?;";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, username);
+		ps.setString(2, stringMd5(password));
+		ResultSet rs = ps.executeQuery();
 
+		User user;
+		if(rs.next())
+		{
+			user = new User();
+
+			user.setUid(rs.getInt("uid"));
+			user.setUsername(rs.getString("username"));
+			user.setNickname(rs.getString("nickname"));
+			user.setHeadPic(rs.getString("head-pic"));
+			user.setLable(rs.getString("label"));
+		}
+		else
+		{
+			user = null;
+		}
+
+		return user;
+	}
+
+//	查找是否存在用户名
 	public boolean ajaxValidateLoginname(String username) throws SQLException
 	{
 		String sql = "SELECT COUNT(1) FROM user WHERE username = ?;";
