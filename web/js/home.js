@@ -6,6 +6,60 @@ window.onload = function () {
     document.getElementsByClassName("container")[0].style.height = height;
 }
 
+function ajaxLogin()
+{
+  var $username = $("#username").val();
+  var $password = $("#password").val();
+
+  $.ajax({
+    type : "POST",
+    url : "../LoginServlet",
+    datatype : "json",
+    data : "username=" + $username + "&password=" + $password,
+
+    success : function(result)
+    {
+      result = eval(result);
+      if(result)
+      {
+        window.location.href = "../html/owner.html";
+      }
+      else
+      {
+        alert("用户名或密码错误");
+      }
+    }
+  })
+}
+
+function ajaxRegister()
+{
+  var $username = $("#username").val();
+  var $password = $("#password").val();
+  var $nickname = $("#nickname").val();
+
+  $.ajax({
+    type : "POST",
+    url : "../RegisterServlet",
+    datatype : "json",
+    data : "username=" + $username + "&password=" + $password + "&nickname=" + $nickname,
+
+    success : function(result)
+    {
+      result = eval(result);
+      if(result)
+      {
+        alert("注册成功！");
+        location.reload(true);
+      }
+      else
+      {
+        alert("注册失败请重试！");
+      }
+    }
+  })
+}
+
 register.onmouseover=function(){
 	showwords(this);
 }
@@ -89,7 +143,7 @@ register.onclick = function()
 
     if(bool)
     {
-      $("form#register").submit();
+      ajaxRegister();
     }
   });
 
@@ -178,7 +232,7 @@ login.onclick = function()
 
     if(bool)
     {
-      $("form#login").submit();
+      ajaxLogin();
     }
   });
 
@@ -333,16 +387,16 @@ function validateUsername()
   /**
 	 * 长度检验
    */
-  if($username.length < 6 || $username.length > 15)
+  if($username.length < 4 || $username.length > 15)
 	{
-    $validate.text('The length of username should between 6 and 15!');
+    $validate.text('The length of username should between 4 and 15!');
     return false;
 	}
 
   /**
 	 * 合法性检验
    */
-  var pat = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){5,14}$/;
+  var pat = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){3,14}$/;
   if(!pat.test($username))
   {
     $validate.text('The first of username should be letter, the rest of username could be _, number, letter!');
@@ -463,7 +517,7 @@ function validateNickname()
   /**
 	 * 合法性检验
    */
-  var pat = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){5,9}$/;
+  var pat = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){2,9}$/;
   if(!pat.test($nickname))
   {
     $validate.text('The first of username should be letter, the rest of username could be _, number, letter!');

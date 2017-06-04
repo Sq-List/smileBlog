@@ -179,7 +179,7 @@
 	top: 100px;
 	color: #000000;
 	position: fixed;
-	display: block;
+	display: none;
 }
 
 .personal-headpicture {

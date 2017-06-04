@@ -1,0 +1,23 @@
+.main .main-textarea
+{
+  background: #6C6C6C;
+}
+
+.main .main-textarea #editor
+{
+  width: 80%;
+  height: 800px;
+  margin: 0 auto;
+
+  color: black;
+}
+
+.main .main-textarea #editor #title
+{
+  width: 98%;
+  height: 50px;
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: sans-serif;
+}

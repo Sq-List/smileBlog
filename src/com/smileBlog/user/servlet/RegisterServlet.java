@@ -40,11 +40,11 @@ public class RegisterServlet extends HttpServlet
 		{
 			userDAO.add(user);
 
-			out.write("<script language='javascript'>alert('registration success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+			out.print("true");
 		}
 		catch (SQLException e)
 		{
-			out.write("<script language='javascript'>alert('registration fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+			out.print("false");
 		}
 	}
 

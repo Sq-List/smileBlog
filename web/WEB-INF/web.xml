@@ -3,6 +3,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <!--编码过滤-->
+    <filter>
+        <filter-name>EncdoingFilter</filter-name>
+        <filter-class>cn.itcast.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncdoingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--登录过滤-->
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.smileBlog.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!--ajax验证用户名-->
     <servlet>
         <servlet-name>AjaxValidateUsernameServlet</servlet-name>
@@ -33,7 +53,7 @@
         <url-pattern>/AjaxValidateVerifyCodeServlet</url-pattern>
     </servlet-mapping>
 
-    <!--注册-->
+    <!--ajax注册-->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.smileBlog.user.servlet.RegisterServlet</servlet-class>
@@ -43,7 +63,7 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
 
-    <!--登录-->
+    <!--ajax登录-->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.smileBlog.user.servlet.LoginServlet</servlet-class>
@@ -51,6 +71,36 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--提交文章-->
+    <servlet>
+        <servlet-name>submitArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.submitArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>submitArticleServlet</servlet-name>
+        <url-pattern>/submitArticleServlet</url-pattern>
+    </servlet-mapping>
+    
+    <!--获取文章-->
+    <servlet>
+        <servlet-name>AjaxGetArticleListServlet</servlet-name>
+        <servlet-class>com.smileBlog.user.servlet.AjaxGetArticleListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxGetArticleListServlet</servlet-name>
+        <url-pattern>/AjaxGetArticleListServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--文件上传-->
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>com.smileBlog.test.UploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>
 </web-app>
 

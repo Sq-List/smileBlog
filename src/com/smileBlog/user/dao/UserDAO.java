@@ -1,42 +1,29 @@
 package com.smileBlog.user.dao;
 
+import com.smileBlog.user.entity.Article;
 import com.smileBlog.user.entity.User;
+import com.smileBlog.util.DataSource;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.smileBlog.util.DataSource.*;
 
 /**
  * Created by asus on 2017/5/29.
  */
 public class UserDAO
 {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/smileBlog";
-
-	static final String USER = "root";
-	static final String PASS = "123456";
-
 	Connection conn = null;
 	Statement stmt = null;
 	PreparedStatement ps = null;
 
 	public UserDAO()
 	{
-		try
-		{
-			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			stmt = conn.createStatement();
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+
 	}
 
 	public static String stringMd5(String str)
@@ -81,6 +68,8 @@ public class UserDAO
 //	添加用户
 	public void add(User user) throws SQLException
 	{
+		conn = getConnection();
+
 		String sql = "INSERT INTO `user`(`username`, `password`, `nickname`, `head-pic`) VALUES (?, ?, ?, ?);";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, user.getUsername());
@@ -93,6 +82,8 @@ public class UserDAO
 //	通过用户名和密码查找用户
 	public User selectByUsernameAndPassword(String username, String password) throws SQLException
 	{
+		conn = getConnection();
+
 		String sql = "SELECT * FROM user WHERE username = ? AND password = ?;";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
@@ -121,6 +112,8 @@ public class UserDAO
 //	查找是否存在用户名
 	public boolean ajaxValidateLoginname(String username) throws SQLException
 	{
+		conn = getConnection();
+
 		String sql = "SELECT COUNT(1) FROM user WHERE username = ?;";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
@@ -128,5 +121,30 @@ public class UserDAO
 		result.next();
 		int count = result.getInt(1);
 		return count == 0;
+	}
+
+	public List<Article> selectArticleByUid(int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT aid, ownuid, title, create_time FROM article WHERE ownuid=?";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
+		ResultSet rs = ps.executeQuery();
+
+		List<Article> articleList = new ArrayList<Article>();
+		while(rs.next())
+		{
+			Article article = new Article();
+			article.setAid(rs.getInt("aid"));
+			article.setOwnuid(rs.getInt("ownuid"));
+			article.setTitle(rs.getString("title"));
+			article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+
+			articleList.add(article);
+			System.out.println(article.getAid());
+		}
+
+		return articleList;
 	}
 }

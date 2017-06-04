@@ -27,6 +27,8 @@ public class LoginServlet extends HttpServlet
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
+//		System.out.println(username + ", " + password);
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
@@ -37,15 +39,16 @@ public class LoginServlet extends HttpServlet
 			if (user != null)
 			{
 				request.getSession().setAttribute("user", user);
-//				request.setAttribute("");
+				out.print("true");
 
-//				response.sendRedirect(request.getContextPath() + "/jsp/owner.jsp");
-				System.out.println(request.getContextPath());
-				request.getRequestDispatcher("/jsp/owner.jsp").forward(request, response);
+//				response.sendRedirect(request.getContextPath() + "/jsp/owner-noUse.jsp");
+//				System.out.println(request.getContextPath());
+//				request.getRequestDispatcher("/jsp/owner-noUse.jsp").forward(request, response);
 			}
 			else
 			{
-				out.write("<script language='javascript'>alert('username or password is wrong!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+				out.print("false");
+//				out.write("<script language='javascript'>alert('username or password is wrong!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
 			}
 		}
 		catch (SQLException e)
