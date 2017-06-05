@@ -33,7 +33,7 @@
         <url-pattern>/AjaxValidateUsernameServlet</url-pattern>
     </servlet-mapping>
 
-    <!--验证码-->
+    <!--获取验证码-->
     <servlet>
         <servlet-name>VerifyCodeServlet</servlet-name>
         <servlet-class>cn.itcast.vcode.servlet.VerifyCodeServlet</servlet-class>
@@ -53,7 +53,7 @@
         <url-pattern>/AjaxValidateVerifyCodeServlet</url-pattern>
     </servlet-mapping>
 
-    <!--ajax注册-->
+    <!--注册-->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.smileBlog.user.servlet.RegisterServlet</servlet-class>
@@ -63,7 +63,7 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
 
-    <!--ajax登录-->
+    <!--登录-->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.smileBlog.user.servlet.LoginServlet</servlet-class>
@@ -73,25 +73,65 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
-    <!--提交文章-->
+    <!--首页、获取文章-->
     <servlet>
-        <servlet-name>submitArticleServlet</servlet-name>
-        <servlet-class>com.smileBlog.article.servlet.submitArticleServlet</servlet-class>
+        <servlet-name>GetArticleListServlet</servlet-name>
+        <servlet-class>com.smileBlog.user.servlet.GetArticleListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>submitArticleServlet</servlet-name>
+        <servlet-name>GetArticleListServlet</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <!--文章详情页-->
+    <servlet>
+        <servlet-name>GetArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.GetArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetArticleServlet</servlet-name>
+        <url-pattern>/article</url-pattern>
+    </servlet-mapping>
+
+    <!--写文章-->
+    <servlet>
+        <servlet-name>WriteArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.WriteArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WriteArticleServlet</servlet-name>
+        <url-pattern>/writeArticle</url-pattern>
+    </servlet-mapping>
+
+    <!--提交文章-->
+    <servlet>
+        <servlet-name>SubmitArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.SubmitArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubmitArticleServlet</servlet-name>
         <url-pattern>/submitArticleServlet</url-pattern>
     </servlet-mapping>
     
     <!--获取文章-->
-    <servlet>
-        <servlet-name>AjaxGetArticleListServlet</servlet-name>
-        <servlet-class>com.smileBlog.user.servlet.AjaxGetArticleListServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AjaxGetArticleListServlet</servlet-name>
-        <url-pattern>/AjaxGetArticleListServlet</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>AjaxGetArticleListServlet</servlet-name>-->
+        <!--<servlet-class>com.smileBlog.user.servlet.AjaxGetArticleListServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>AjaxGetArticleListServlet</servlet-name>-->
+        <!--<url-pattern>/AjaxGetArticleListServlet</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--获取用户信息-->
+    <!--<servlet>-->
+        <!--<servlet-name>AjaxGetUserServlet</servlet-name>-->
+        <!--<servlet-class>com.smileBlog.user.servlet.AjaxGetUserServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>AjaxGetUserServlet</servlet-name>-->
+        <!--<url-pattern>/AjaxGetUserServlet</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--文件上传-->
     <servlet>

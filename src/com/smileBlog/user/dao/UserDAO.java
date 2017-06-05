@@ -123,28 +123,30 @@ public class UserDAO
 		return count == 0;
 	}
 
-	public List<Article> selectArticleByUid(int uid) throws SQLException
+	public User selectUserByUid(int uid) throws SQLException
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT aid, ownuid, title, create_time FROM article WHERE ownuid=?";
+		String sql = "SELECT * FROM user WHERE uid=?";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, uid);
 		ResultSet rs = ps.executeQuery();
 
-		List<Article> articleList = new ArrayList<Article>();
-		while(rs.next())
+		User user;
+		if(rs.next())
 		{
-			Article article = new Article();
-			article.setAid(rs.getInt("aid"));
-			article.setOwnuid(rs.getInt("ownuid"));
-			article.setTitle(rs.getString("title"));
-			article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+			user = new User();
 
-			articleList.add(article);
-			System.out.println(article.getAid());
+			user.setUid(rs.getInt("uid"));
+			user.setNickname(rs.getString("nickname"));
+			user.setHeadPic(rs.getString("head-pic"));
+			user.setLable(rs.getString("label"));
+		}
+		else
+		{
+			user = null;
 		}
 
-		return articleList;
+		return user;
 	}
 }

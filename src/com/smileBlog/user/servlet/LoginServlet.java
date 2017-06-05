@@ -2,6 +2,7 @@ package com.smileBlog.user.servlet;
 
 import com.smileBlog.user.dao.UserDAO;
 import com.smileBlog.user.entity.User;
+import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class LoginServlet extends HttpServlet
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-//		System.out.println(username + ", " + password);
+		System.out.println(username + ", " + password);
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -36,26 +37,41 @@ public class LoginServlet extends HttpServlet
 		{
 			User user = userDAO.selectByUsernameAndPassword(username, password);
 
-			if (user != null)
-			{
-				request.getSession().setAttribute("user", user);
-				out.print("true");
+			request.getSession().setAttribute("user", user);
 
-//				response.sendRedirect(request.getContextPath() + "/jsp/owner-noUse.jsp");
-//				System.out.println(request.getContextPath());
-//				request.getRequestDispatcher("/jsp/owner-noUse.jsp").forward(request, response);
-			}
-			else
-			{
-				out.print("false");
-//				out.write("<script language='javascript'>alert('username or password is wrong!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
-			}
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			out.write("<script language='javascript'>alert('login fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
 		}
+
+		//		try
+//		{
+//			User user = userDAO.selectByUsernameAndPassword(username, password);
+//
+//			if (user != null)
+//			{
+//				request.getSession().setAttribute("user", user);
+//
+//				JSONObject jsonObject = new JSONObject();
+//				jsonObject.put("status", "true");
+//				jsonObject.put("uid", user.getUid());
+//
+//				out.print(jsonObject);
+//			}
+//			else
+//			{
+//				JSONObject jsonObject = new JSONObject();
+//				jsonObject.put("status", "false");
+//				out.print(jsonObject);
+//			}
+//		}
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//			out.write("<script language='javascript'>alert('login fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+//		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

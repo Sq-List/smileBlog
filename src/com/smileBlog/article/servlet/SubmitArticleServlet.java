@@ -17,8 +17,8 @@ import java.util.Date;
 /**
  * Created by asus on 2017/6/3.
  */
-//@WebServlet(name = "submitArticleServlet")
-public class submitArticleServlet extends HttpServlet
+//@WebServlet(name = "SubmitArticleServlet")
+public class SubmitArticleServlet extends HttpServlet
 {
 	ArticleDAO articleDAO = new ArticleDAO();
 
@@ -42,11 +42,12 @@ public class submitArticleServlet extends HttpServlet
 		{
 			articleDAO.add(article);
 
-			out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/jsp/owner-noUse.jsp';</script>");
+			out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
+//			response.sendRedirect(request.getContextPath() + "/index");
 		}
 		catch (SQLException e)
 		{
-			out.write("<script language='javascript'>alert('publish fail!');window.location.href='"+request.getContextPath()+"/jsp/owner-noUse.jsp';</script>");
+			out.write("<script language='javascript'>alert('publish fail!');window.location.href='"+request.getContextPath()+"/index';</script>");
 			e.printStackTrace();
 		}
 	}

@@ -5,34 +5,71 @@
     <title>upload</title>
 </head>
 <body>
-<form action="../UploadServlet" method="post" enctype="multipart/form-data">
+<form action="../UploadServlet" method="post" id="uploadform" enctype="multipart/form-data">
     <table>
         <caption>上传实例</caption>
         <tr>
-            <td>姓名</td>
-            <td>
-                <input type="text" name="name">
-            </td>
-        </tr>
-        <tr>
-            <td>年龄</td>
-            <td>
-                <input type="text" name="age">
-            </td>
-        </tr>
-        <tr>
             <td>照片</td>
             <td>
-                <input type="file" name="image">
+                <!--<input type="file" name="image" accept="image/png, image/jpeg, image/gif, image/jpg">-->
+                <input type="file" name="image" id="fileId">
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="提交">
+                <input type="button" value="提交" id="btn">
             </td>
         </tr>
     </table>
+
 </form>
+<div id="jindu"></div>
 </body>
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script>
+    $("#btn").click(
+        function()
+        {
+            var form = document.getElementById("uploadform");
+            var formData = new FormData(form);
+
+            $.ajax(
+                {
+                    url: "../UploadServlet",
+                    data: formData,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    dataType: "text",
+
+                    success: function()
+                    {
+                        clearInterval(getRate());
+                    }
+                }
+            );
+
+//            设置定时器每隔一段通过ajax请求进度
+//            类型为get, 因为post为上传的方式
+            var getRate = setInterval(
+                function()
+                {
+                    $.ajax(
+                        {
+                            url: "../UploadServlet",
+                            type: "GET",
+                            dataType: "text",
+
+                            success: function(rate)
+                            {
+                                $("#jindu").text(rate.slice(0, rate.indexOf('.')) + "%");
+                            }
+                        }
+                    )
+                }
+            , 1);
+        }
+    )
+</script>
 </html>

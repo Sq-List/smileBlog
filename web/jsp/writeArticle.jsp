@@ -6,31 +6,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>owner</title>
-	<link rel="stylesheet" type="text/css" href="../css/owner.css">
-	<link rel="stylesheet" type="text/css" href="../css/container.css">
-	<link rel="stylesheet" type="text/css" href="../css/writeArtical.css">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/css/writeArtical.css' />">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/owner.css' />">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/container.css"/> ">
 </head>
 <body>
 <div class="container">
-	<div class="menu">
-		<h3>HOME</h3>
-		<div class="menu-headpicture">
-			<img src="../image/polygon.jpg">
-		</div>
-		<br>
-		<div class="menu-personmessage">
-			<div>A七</div>
-			<div>for better</div>
-		</div>
-		<div class="menu-list">
-			<ul>
-				<li>NEW</li>
-				<li>COLLECTION</li>
-				<li>TOOL</li>
-				<li>EXIT</li>
-			</ul>
-		</div>
-	</div>
+    <div class="menu">
+        <h3><a href="<c:url value='/index?uid=${sessionScope.user.uid}'/>">HOME</a></h3>
+        <div class="menu-headpicture">
+            <%--挑出框--%>
+            <img src="${user.headPic}">
+        </div>
+        <br>
+        <div class="menu-personmessage">
+            <div>${user.nickname}</div>
+            <div>${uesr.lable}</div>
+        </div>
+        <div class="menu-list">
+            <ul>
+                <li>NEW</li>
+                <li>COLLECTION</li>
+                <li>TOOL</li>
+                <li>EXIT</li>
+            </ul>
+        </div>
+    </div>
 	<div class="notmenu">&nbsp;</div>
 	<div class="main">
 		<div class="main-search">
@@ -41,21 +42,21 @@
 			<input type="text" name="search" value="文章/博主搜索" onclick="clearcontent(this)">
 		</div>
 		<div class="main-textarea">
-			<form action="../submitArticleServlet" id="editor" method="post">
+			<form action="<c:url value='/submitArticleServlet' />" id="editor" method="post">
 				<input type="text" id="title" name="title" placeholder="填写文章标题">
 				<script id="container" name="content" type="text/plain">请输入正文</script>
 				<input type="submit" value="发布">
-				<!--<input type="button" onclick="submitArtical()" value="11">-->
+				<%--<input type="button" onclick="submitArtical()" value="11">--%>
 			</form>
 		</div>
 	</div>
 </div>
-<script src="../js/jquery-3.2.1.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="../js/search.js"></script>
+<script src="<c:url value='/js/jquery-3.2.1.min.js' />" charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value='/js/search.js' />"></script>
 <!-- 配置文件 -->
-<script type="text/javascript" src="../neditor.config.js"></script>
+<script type="text/javascript" src="<c:url value='/neditor.config.js' />"></script>
 <!-- 编辑器源码文件 -->
-<script type="text/javascript" src="../neditor.all.js"></script>
+<script type="text/javascript" src="<c:url value='/neditor.all.js' />"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
     var ue = UE.getEditor('container',

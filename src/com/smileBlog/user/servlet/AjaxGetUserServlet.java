@@ -2,6 +2,7 @@ package com.smileBlog.user.servlet;
 
 import com.smileBlog.user.dao.UserDAO;
 import com.smileBlog.user.entity.User;
+import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,42 +14,48 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
- * Created by asus on 2017/5/30.
+ * Created by asus on 2017/6/4.
  */
-//@WebServlet(name = "RegisterServlet")
-public class RegisterServlet extends HttpServlet
+//@WebServlet(name = "AjaxGetUserServlet")
+public class AjaxGetUserServlet extends HttpServlet
 {
-	private UserDAO userDAO = new UserDAO();
+	UserDAO userDAO = new UserDAO();
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-		User user = new User();
-
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String nickname = request.getParameter("nickname");
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setNickname(nickname);
-		user.setHeadPic("../image/head-pic.jpg");
-
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-//
-//		try
-//		{
-//			userDAO.add(user);
-//
-//			out.print("true");
-//		}
-//		catch (SQLException e)
-//		{
-//			out.print("false");
-//		}
 
-		out.write("<script language='javascript'>alert('register success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+		String uid = request.getParameter("uid");
+		User user = (User)request.getSession().getAttribute("user");
 
+		JSONObject jsonObject = new JSONObject();
+
+		if(uid.equalsIgnoreCase((user.getUid() + "")))
+		{
+			jsonObject.put("user", user);
+			jsonObject.put("flag", "true");
+
+			out.print(jsonObject);
+
+		}
+		else
+		{
+			try
+			{
+				user = userDAO.selectUserByUid(Integer.parseInt(uid));
+
+				jsonObject.put("user", user);
+				jsonObject.put("flag", "false");
+
+				out.print(jsonObject);
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

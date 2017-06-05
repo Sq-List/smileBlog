@@ -30,7 +30,7 @@ public class LoginFilter implements Filter
 		System.out.println(requestUri);
 
 //		如果请求页面为登录页面或验证码则通过
-		if (requestUri.indexOf("home") != -1 || requestUri.indexOf("Servlet") != -1 || requestUri.endsWith(".css") || requestUri.endsWith(".js") || requestUri.endsWith(".jpg"))
+		if (requestUri.indexOf("home") != -1 || requestUri.indexOf("Servlet") != -1 || requestUri.endsWith(".css") || requestUri.endsWith(".js") || requestUri.endsWith(".jpg") || requestUri.endsWith(".html"))
 		{
 			System.out.println("未被拦截");
 			chain.doFilter(req, resp);

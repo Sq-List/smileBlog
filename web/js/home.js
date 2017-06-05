@@ -6,59 +6,60 @@ window.onload = function () {
     document.getElementsByClassName("container")[0].style.height = height;
 }
 
-function ajaxLogin()
-{
-  var $username = $("#username").val();
-  var $password = $("#password").val();
-
-  $.ajax({
-    type : "POST",
-    url : "../LoginServlet",
-    datatype : "json",
-    data : "username=" + $username + "&password=" + $password,
-
-    success : function(result)
-    {
-      result = eval(result);
-      if(result)
-      {
-        window.location.href = "../html/owner.html";
-      }
-      else
-      {
-        alert("用户名或密码错误");
-      }
-    }
-  })
-}
-
-function ajaxRegister()
-{
-  var $username = $("#username").val();
-  var $password = $("#password").val();
-  var $nickname = $("#nickname").val();
-
-  $.ajax({
-    type : "POST",
-    url : "../RegisterServlet",
-    datatype : "json",
-    data : "username=" + $username + "&password=" + $password + "&nickname=" + $nickname,
-
-    success : function(result)
-    {
-      result = eval(result);
-      if(result)
-      {
-        alert("注册成功！");
-        location.reload(true);
-      }
-      else
-      {
-        alert("注册失败请重试！");
-      }
-    }
-  })
-}
+// function ajaxLogin()
+// {
+//   var $username = $("#username").val();
+//   var $password = $("#password").val();
+//
+//   $.ajax({
+//     type : "POST",
+//     url : "../LoginServlet",
+//     datatype : "json",
+//     data : "username=" + $username + "&password=" + $password,
+//
+//     success : function(result)
+//     {
+//       result = eval("(" + result + ")");
+//       status = result.status;
+//       if(status)
+//       {
+//         window.location.href = "../html/owner-noUse.html?uid=" + result.uid;
+//       }
+//       else
+//       {
+//         alert("用户名或密码错误");
+//       }
+//     }
+//   })
+// }
+//
+// function ajaxRegister()
+// {
+//   var $username = $("#username").val();
+//   var $password = $("#password").val();
+//   var $nickname = $("#nickname").val();
+//
+//   $.ajax({
+//     type : "POST",
+//     url : "../RegisterServlet",
+//     datatype : "json",
+//     data : "username=" + $username + "&password=" + $password + "&nickname=" + $nickname,
+//
+//     success : function(result)
+//     {
+//       result = eval(result);
+//       if(result)
+//       {
+//         alert("注册成功！");
+//         location.reload(true);
+//       }
+//       else
+//       {
+//         alert("注册失败请重试！");
+//       }
+//     }
+//   })
+// }
 
 register.onmouseover=function(){
 	showwords(this);
@@ -143,7 +144,7 @@ register.onclick = function()
 
     if(bool)
     {
-      ajaxRegister();
+      $("#register").submit();
     }
   });
 
@@ -232,7 +233,7 @@ login.onclick = function()
 
     if(bool)
     {
-      ajaxLogin();
+      $("#login").submit();
     }
   });
 
