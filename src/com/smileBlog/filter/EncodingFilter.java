@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by asus on 2017/6/8.
  */
-@WebFilter(filterName = "EncodingFilter")
+//@WebFilter(filterName = "EncodingFilter")
 public class EncodingFilter implements Filter
 {
 
