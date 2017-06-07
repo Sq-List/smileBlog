@@ -37,16 +37,24 @@ public class LoginServlet extends HttpServlet
 		{
 			User user = userDAO.selectByUsernameAndPassword(username, password);
 
-			request.getSession().setAttribute("user", user);
+			if(user != null)
+			{
+				request.getSession().setAttribute("user", user);
 
-			response.sendRedirect(request.getContextPath() + "/index");
+				response.sendRedirect(request.getContextPath() + "/index");
+			}
+			else
+			{
+				out.write("<script language='javascript'>alert('login fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+
+			}
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
 
-		//		try
+//		try
 //		{
 //			User user = userDAO.selectByUsernameAndPassword(username, password);
 //

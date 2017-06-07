@@ -11,6 +11,7 @@ public class Article
 	private int ownuid;
 	private String title;
 	private String content;
+	private String contentTxt;
 	private int pageView;
 	private Date createTime;
 	private int likeNumber;
@@ -54,6 +55,16 @@ public class Article
 	public void setContent(String content)
 	{
 		this.content = content;
+	}
+
+	public String getContentTxt()
+	{
+		return contentTxt;
+	}
+
+	public void setContentTxt(String contentTxt)
+	{
+		this.contentTxt = contentTxt;
 	}
 
 	public int getPageView()

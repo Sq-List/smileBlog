@@ -42,11 +42,12 @@
 			<input type="text" name="search" value="文章/博主搜索" onclick="clearcontent(this)">
 		</div>
 		<div class="main-textarea">
-			<form action="<c:url value='/submitArticleServlet' />" id="editor" method="post">
+			<form action="<c:url value='/SubmitArticleServlet' />" id="editor" method="post">
 				<input type="text" id="title" name="title" placeholder="填写文章标题">
 				<script id="container" name="content" type="text/plain">请输入正文</script>
+                <input type="hidden" id="contentTxt" name="contentTxt">
 				<input type="submit" value="发布">
-				<%--<input type="button" onclick="submitArtical()" value="11">--%>
+				<input type="button" onclick="submitArtical()" value="11">
 			</form>
 		</div>
 	</div>
@@ -73,9 +74,18 @@
       	enableAutoSave: false
     });
 
+    $("form#editor").submit(
+        function()
+        {
+            $("#contentTxt").val(UE.getEditor('container').getContentTxt());
+            return true;
+        }
+    );
+
 	function submitArtical()
 	{
       console.log(UE.getEditor('container').getContent());
+      console.log(UE.getEditor('container').getContentTxt());
 	}
 </script>
 </body>

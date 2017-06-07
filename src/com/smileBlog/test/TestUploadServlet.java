@@ -21,13 +21,13 @@ import org.apache.commons.fileupload.util.Streams;
 /**
  * Created by asus on 2017/6/3.
  */
-//@WebServlet(name = "UploadServlet")
-public class UploadServlet extends HttpServlet
+//@WebServlet(name = "TestUploadServlet")
+public class TestUploadServlet extends HttpServlet
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public UploadServlet()
+	public TestUploadServlet()
 	{
 		super();
 	}
@@ -73,7 +73,6 @@ public class UploadServlet extends HttpServlet
 			//创建监听器,修改session上的进度值
 			ProgressListener progressListener = new ProgressListener()
 			{
-
 				@Override
 				public void update(long pBytesRead, long pContentLength, int pItems)
 				{

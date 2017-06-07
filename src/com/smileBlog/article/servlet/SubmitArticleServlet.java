@@ -29,12 +29,13 @@ public class SubmitArticleServlet extends HttpServlet
 		PrintWriter out = response.getWriter();
 
 		User user = (User) (request.getSession().getAttribute("user"));
-//		out.print(request.getParameter("title"));
-//		System.out.println(user.getUid());
 
 		Article article = new Article();
 		article.setTitle(request.getParameter("title"));
 		article.setContent(request.getParameter("content"));
+		article.setContentTxt(request.getParameter("contentTxt"));
+		System.out.println(request.getCharacterEncoding());
+		System.out.println(request.getParameter("contentTxt"));
 		article.setOwnuid(user.getUid());
 //		article.setCreateTime(String.valueOf((new Date()).getTime()));
 
@@ -42,7 +43,7 @@ public class SubmitArticleServlet extends HttpServlet
 		{
 			articleDAO.add(article);
 
-			out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
+//			out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
 //			response.sendRedirect(request.getContextPath() + "/index");
 		}
 		catch (SQLException e)

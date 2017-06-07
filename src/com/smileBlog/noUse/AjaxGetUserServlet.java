@@ -1,4 +1,4 @@
-package com.smileBlog.user.servlet;
+package com.smileBlog.noUse;
 
 import com.smileBlog.user.dao.UserDAO;
 import com.smileBlog.user.entity.User;
@@ -19,43 +19,43 @@ import java.sql.SQLException;
 //@WebServlet(name = "AjaxGetUserServlet")
 public class AjaxGetUserServlet extends HttpServlet
 {
-	UserDAO userDAO = new UserDAO();
+//	UserDAO userDAO = new UserDAO();
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-
-		String uid = request.getParameter("uid");
-		User user = (User)request.getSession().getAttribute("user");
-
-		JSONObject jsonObject = new JSONObject();
-
-		if(uid.equalsIgnoreCase((user.getUid() + "")))
-		{
-			jsonObject.put("user", user);
-			jsonObject.put("flag", "true");
-
-			out.print(jsonObject);
-
-		}
-		else
-		{
-			try
-			{
-				user = userDAO.selectUserByUid(Integer.parseInt(uid));
-
-				jsonObject.put("user", user);
-				jsonObject.put("flag", "false");
-
-				out.print(jsonObject);
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+//		response.setContentType("text/html;charset=utf-8");
+//		PrintWriter out = response.getWriter();
+//
+//		String uid = request.getParameter("uid");
+//		User user = (User)request.getSession().getAttribute("user");
+//
+//		JSONObject jsonObject = new JSONObject();
+//
+//		if(uid.equalsIgnoreCase((user.getUid() + "")))
+//		{
+//			jsonObject.put("user", user);
+//			jsonObject.put("flag", "true");
+//
+//			out.print(jsonObject);
+//
+//		}
+//		else
+//		{
+//			try
+//			{
+//				user = userDAO.selectUserByUid(Integer.parseInt(uid));
+//
+//				jsonObject.put("user", user);
+//				jsonObject.put("flag", "false");
+//
+//				out.print(jsonObject);
+//			}
+//			catch (SQLException e)
+//			{
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

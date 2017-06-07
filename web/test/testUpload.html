@@ -3,6 +3,34 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>upload</title>
+    <style>
+        #progress-bar
+        {
+            height: 20px;
+            width:500px;
+            border: 1px solid black;
+        }
+        #progress
+        {
+            height: 20px;
+            width: 0;
+            background: blue;
+            transition: all 0.5s;
+            /*-webkit-animation: process 800ms 1 linear;*/
+            /*animation: process 800ms 1 linear;*/
+        }
+
+        @-webkit-keyframes process
+        {
+            0% { width:0; }
+            100% { width:500px; }
+        }
+        @keyframes process
+        {
+            0% { width:0; }
+            100% { width:500px; }
+        }
+    </style>
 </head>
 <body>
 <form action="../UploadServlet" method="post" id="uploadform" enctype="multipart/form-data">
@@ -24,7 +52,9 @@
     </table>
 
 </form>
-<div id="jindu"></div>
+<div id="progress-bar">
+    <div id="progress"></div>
+</div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 <script>
@@ -33,10 +63,11 @@
         {
             var form = document.getElementById("uploadform");
             var formData = new FormData(form);
+            $("#progress").css("width", "0px");
 
             $.ajax(
                 {
-                    url: "../UploadServlet",
+                    url: "../AjaxUploadServlet",
                     data: formData,
                     type: "POST",
                     processData: false,
@@ -45,7 +76,12 @@
 
                     success: function()
                     {
-                        clearInterval(getRate());
+                        clearInterval(getRate);
+                        $("#progress").css("width", "500px");
+                    },
+                    error: function()
+                    {
+                        clearInterval(getRate);
                     }
                 }
             );
@@ -57,18 +93,23 @@
                 {
                     $.ajax(
                         {
-                            url: "../UploadServlet",
+                            url: "../AjaxUploadServlet",
                             type: "GET",
                             dataType: "text",
 
-                            success: function(rate)
+                            success: function(progress)
                             {
-                                $("#jindu").text(rate.slice(0, rate.indexOf('.')) + "%");
+//                                $("#progress").text(progress.slice(0, rate.indexOf('.')) + "%");
+                                $("#progress").css("width", progress * 5 + "px");
+//                                console.log(progress);
+//                                console.log($("#").width);
+//                                document.getElementById("progress").style.animation = "process " + progress * 1000 + "ms 1 linear";
+//                                document.getElementById("progress").style.webkitAnimation = "process " + progress * 1000 + "ms 1 linear";
                             }
                         }
                     )
                 }
-            , 1);
+            , 150);
         }
     )
 </script>

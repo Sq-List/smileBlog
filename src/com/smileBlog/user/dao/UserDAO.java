@@ -1,16 +1,11 @@
 package com.smileBlog.user.dao;
 
-import com.smileBlog.user.entity.Article;
 import com.smileBlog.user.entity.User;
 import com.smileBlog.util.DataSource;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.smileBlog.util.DataSource.*;
 
 /**
  * Created by asus on 2017/5/29.
@@ -66,9 +61,9 @@ public class UserDAO
 	}
 
 //	添加用户
-	public void add(User user) throws SQLException
+	public int add(User user) throws SQLException
 	{
-		conn = getConnection();
+		conn = DataSource.getConnection();
 
 		String sql = "INSERT INTO `user`(`username`, `password`, `nickname`, `head-pic`) VALUES (?, ?, ?, ?);";
 		ps = conn.prepareStatement(sql);
@@ -76,13 +71,13 @@ public class UserDAO
 		ps.setString(2, stringMd5(user.getPassword()));
 		ps.setString(3, user.getNickname());
 		ps.setString(4, user.getHeadPic());
-		ps.executeUpdate();
+		return  ps.executeUpdate();
 	}
 
 //	通过用户名和密码查找用户
 	public User selectByUsernameAndPassword(String username, String password) throws SQLException
 	{
-		conn = getConnection();
+		conn = DataSource.getConnection();
 
 		String sql = "SELECT * FROM user WHERE username = ? AND password = ?;";
 		ps = conn.prepareStatement(sql);
@@ -112,7 +107,7 @@ public class UserDAO
 //	查找是否存在用户名
 	public boolean ajaxValidateLoginname(String username) throws SQLException
 	{
-		conn = getConnection();
+		conn = DataSource.getConnection();
 
 		String sql = "SELECT COUNT(1) FROM user WHERE username = ?;";
 		ps = conn.prepareStatement(sql);

@@ -1,8 +1,8 @@
-package com.smileBlog.user.servlet;
+package com.smileBlog.article.servlet;
 
 import com.smileBlog.article.dao.ArticleDAO;
 import com.smileBlog.user.dao.UserDAO;
-import com.smileBlog.user.entity.Article;
+import com.smileBlog.article.entity.Article;
 import com.smileBlog.user.entity.User;
 
 import javax.servlet.ServletException;

@@ -20,16 +20,17 @@ public class ArticleDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "INSERT INTO article(ownuid, title, content, create_time) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO article(ownuid, title, content, contentTxt, create_time) VALUES(?, ?, ?, ?, ?)";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, article.getOwnuid());
 		ps.setString(2, article.getTitle());
 		ps.setString(3, article.getContent());
-		ps.setTimestamp(4, new java.sql.Timestamp((new java.util.Date()).getTime()));
+		ps.setString(4, article.getContentTxt());
+		ps.setTimestamp(5, new java.sql.Timestamp((new java.util.Date()).getTime()));
 		ps.executeUpdate();
 	}
 
-	public List<com.smileBlog.user.entity.Article> selectArticleByUid(int uid) throws SQLException
+	public List<Article> selectArticleByUid(int uid) throws SQLException
 	{
 		conn = DataSource.getConnection();
 
@@ -38,10 +39,10 @@ public class ArticleDAO
 		ps.setInt(1, uid);
 		ResultSet rs = ps.executeQuery();
 
-		List<com.smileBlog.user.entity.Article> articleList = new ArrayList<com.smileBlog.user.entity.Article>();
+		List<Article> articleList = new ArrayList<Article>();
 		while(rs.next())
 		{
-			com.smileBlog.user.entity.Article article = new com.smileBlog.user.entity.Article();
+			Article article = new Article();
 			article.setAid(rs.getInt("aid"));
 			article.setOwnuid(rs.getInt("ownuid"));
 			article.setTitle(rs.getString("title"));
@@ -77,6 +78,7 @@ public class ArticleDAO
 		return article;
 	}
 
+//	取这篇文章的上一篇和下一篇
 	public Article getArticleByAidAndUid(int aid, int uid, String to) throws SQLException
 	{
 		conn = DataSource.getConnection();
