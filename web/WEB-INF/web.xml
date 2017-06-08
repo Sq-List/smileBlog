@@ -5,11 +5,11 @@
          version="3.1">
     <!--编码过滤-->
     <filter>
-        <filter-name>EncdoingFilter</filter-name>
+        <filter-name>EncodingFilter</filter-name>
         <filter-class>com.smileBlog.filter.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>EncdoingFilter</filter-name>
+        <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -73,6 +73,46 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
+    <!--更新用户的文章数-->
+    <servlet>
+        <servlet-name>UpdateUserArticleNumberServlet</servlet-name>
+        <servlet-class>com.smileBlog.user.servlet.UpdateUserArticleNumberServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateUserArticleNumberServlet</servlet-name>
+        <url-pattern>/UpdateUserArticleNumberServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--添加消息列表-->
+    <servlet>
+        <servlet-name>AddMessageServlet</servlet-name>
+        <servlet-class>com.smileBlog.message.servlet.AddMessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddMessageServlet</servlet-name>
+        <url-pattern>/AddMessageServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--添加消息数-->
+    <servlet>
+        <servlet-name>UpdateMessageNumberServlet</servlet-name>
+        <servlet-class>com.smileBlog.message.servlet.UpdateMessageNumberServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateMessageNumberServlet</servlet-name>
+        <url-pattern>/UpdateMessageNumberServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--获取消息数-->
+    <servlet>
+        <servlet-name>AjaxGetMessageNumberServlet</servlet-name>
+        <servlet-class>com.smileBlog.message.servlet.AjaxGetMessageNumberServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxGetMessageNumberServlet</servlet-name>
+        <url-pattern>/AjaxGetMessageNumberServlet</url-pattern>
+    </servlet-mapping>
+
     <!--首页、获取文章-->
     <servlet>
         <servlet-name>GetArticleListServlet</servlet-name>
@@ -91,6 +131,16 @@
     <servlet-mapping>
         <servlet-name>GetArticleServlet</servlet-name>
         <url-pattern>/article</url-pattern>
+    </servlet-mapping>
+
+    <!--更新文章各个功能的数量-->
+    <servlet>
+        <servlet-name>UpdateArticleNumberServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.UpdateArticleNumberServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateArticleNumberServlet</servlet-name>
+        <url-pattern>/UpdateArticleNumberServlet</url-pattern>
     </servlet-mapping>
 
     <!--写文章-->
@@ -123,10 +173,20 @@
         <url-pattern>/collection</url-pattern>
     </servlet-mapping>
 
-    <!--添加、删除收藏-->
+    <!--获取是否收藏-->
+    <servlet>
+        <servlet-name>GetCollectionServlet</servlet-name>
+        <servlet-class>com.smileBlog.collection.servlet.GetCollectionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCollectionServlet</servlet-name>
+        <url-pattern>/GetCollectionServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--ajax添加、删除收藏-->
     <servlet>
         <servlet-name>AjaxCollectionServlet</servlet-name>
-        <servlet-class>com.smileBlog.collection.servlet.AjaxCollectionAddOrDelectServlet</servlet-class>
+        <servlet-class>com.smileBlog.collection.servlet.AjaxAddOrDelectCollectionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AjaxCollectionServlet</servlet-name>
@@ -141,6 +201,46 @@
     <servlet-mapping>
         <servlet-name>GetToolListServlet</servlet-name>
         <url-pattern>/tool</url-pattern>
+    </servlet-mapping>
+
+    <!--获取评论列表-->
+    <servlet>
+        <servlet-name>GetCommentListServlet</servlet-name>
+        <servlet-class>com.smileBlog.comment.servlet.GetCommentListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCommentListServlet</servlet-name>
+        <url-pattern>/GetCommentListServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--ajax提交或删除评论-->
+    <servlet>
+        <servlet-name>AjaxSubmitCommentServlet</servlet-name>
+        <servlet-class>com.smileBlog.comment.servlet.AjaxAddOrDelectCommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxSubmitCommentServlet</servlet-name>
+        <url-pattern>/AjaxSubmitCommentServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--获取是否点赞-->
+    <servlet>
+        <servlet-name>GetLikeServlet</servlet-name>
+        <servlet-class>com.smileBlog.like.servlet.GetLikeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetLikeServlet</servlet-name>
+        <url-pattern>/GetLikeServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--ajax添加、删除点赞-->
+    <servlet>
+        <servlet-name>AjaxAddOrDelectLikeServlet</servlet-name>
+        <servlet-class>com.smileBlog.like.servlet.AjaxAddOrDelectLikeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxAddOrDelectLikeServlet</servlet-name>
+        <url-pattern>/AjaxAddOrDelectLikeServlet</url-pattern>
     </servlet-mapping>
     
     <!--获取文章-->
@@ -184,11 +284,31 @@
     <!--文件下载-->
     <servlet>
         <servlet-name>DownloadFileServlet</servlet-name>
-        <servlet-class>com.smileBlog.tool.servlet.DownloadFileServlet</servlet-class>
+        <servlet-class>com.smileBlog.tool.servlet.DownloadToolServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DownloadFileServlet</servlet-name>
         <url-pattern>/DownloadFileServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--搜索文章-->
+    <servlet>
+        <servlet-name>SearchArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.SearchArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchArticleServlet</servlet-name>
+        <url-pattern>/SearchArticleServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--搜索用户-->
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>com.smileBlog.user.servlet.SearchUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/SearchUserServlet</url-pattern>
     </servlet-mapping>
 </web-app>
 

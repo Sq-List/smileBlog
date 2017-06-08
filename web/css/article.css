@@ -1,0 +1,219 @@
+.main-textarea{
+	width: 100%;
+	float: left;
+	height: auto!important;
+	min-height: 610px;
+	margin-top: 54px;
+	text-align: center;
+	position: relative;
+}
+
+.main-picture{
+	width: 80%;
+	position: fixed;
+	left: 270px;
+	z-index: 0;
+	top:54px;
+	opacity: 0.5;
+}
+
+.textcontent{
+	width: 80%;
+	min-height: 610px;
+	position: relative;
+	transform: translate(10%,0);
+	opacity: 1;
+	color: #fff;
+	float: left;
+}
+
+.textcontent div{
+	margin-top: 10px;
+}
+
+.text-title{
+	font-size: 2.5em;
+	text-align: left;
+	width: 100%;
+}
+
+.text-date{
+	text-align: left;
+	float: left;
+	width: 15%;
+	height: 50px;
+	line-height: 50px;
+}
+
+.text-like{
+	float: left;
+	width: 15%;
+	text-align: left;
+	font-size: 1.3em;
+	height: 50px;
+	line-height: 50px;
+	color: #FFFFFF;
+}
+.text-collect{
+	float: left;
+	width: 70%;
+	text-align: left;
+	font-size: 1.3em;
+	height: 50px;
+	line-height: 50px;
+	color: #FFFFFF;
+}
+.text-like div,.text-collect div{
+	float: left;
+	position: relative;
+	transform: translate(0,-23%);
+	padding-right: 15px;
+}
+.text-like div:nth-child(2),.text-collect div:nth-child(2){
+	font-size: 0.8em;
+}
+.text-area{
+	min-height: 350px;
+	width: 100%;
+	text-align: left;
+	line-height: 30px;
+}
+
+.text-keywords{
+	text-align: left;
+}
+.text-previous{
+	float: left;
+	font-size: 1.3em;
+}
+
+.text-next{
+	float: right;
+	font-size: 1.3em;
+}
+
+.commentlist{
+	width: 80%;
+	min-height: 610px;
+	position: relative;
+	transform: translate(10%,0);
+	opacity: 0.7;
+	color: #fff;
+	float: left;
+}
+
+.comment{
+	width: 100%;
+	height: 100px;
+	border-top: 1px solid #8E8B8B;
+	border-bottom: 1px solid #f9be52;
+	margin-bottom: 6px;
+	background-color: #8E8B8B;
+}
+
+.commentator{
+	width: 10%;
+	height: 100%;
+	border-right: 1px solid #FFFFFF;
+	float: left;
+}
+
+.person-picture{
+	height: 70%;
+	width: 100%;
+	float: left;
+    overflow: hidden;
+}
+
+.person-picture img{
+	width:50px;
+	height: 50px;
+	border-radius: 100%;
+}
+
+.person-name{
+	height:30%;
+	width:100%;
+}
+
+.message{
+	width: 85%;
+	height: 100%;
+	float: right;
+}
+
+.time{
+	height: 20%;
+	width: 100%;
+	/*border-bottom: 1px solid #FFFFFF;*/
+	float: left;
+	text-align: left;
+	font-size: 0.8em;
+}
+
+.content{
+	height: 75%;
+	width: 100%;
+	float: left;
+	text-align: left;
+}
+
+#frame{
+	position: fixed;
+	right: 0px;
+	top:300px;
+	height: 100px;
+	transition: all 1.5s;
+}
+.half{
+	width: 52px;
+	line-height: 104px;
+	border-top-left-radius: 52px;
+	border-bottom-left-radius: 52px;
+	background-color: #f9be52;
+	text-align: center;
+	float: left;
+	box-shadow: -5px 20px 50px #000000;
+	font-size: 0.8em;
+}
+
+.pushout{
+	height: 100px;
+	width: 768px;
+	opacity: 0.7;
+	background-color: #FFFFFF;
+	border: none;
+	position: absolute;
+	left: 52px;
+	top: 0;
+	float: left;
+}
+
+.pushout-button{
+	height: 104px;
+	width: 52px;
+	line-height: 104px;
+	border-top-right-radius: 52px;
+	border-bottom-right-radius: 52px;
+	background-color: #f9be52;
+	position: fixed;
+	right: 0px;
+	top:300px;
+	text-align: center;
+	box-shadow: 10px 20px 50px #000000;
+	position: absolute;
+	left: 824px;
+	top: 0;
+	float: left;
+}
+
+.button-array{
+	border: 0px;
+	background-color: #e89136;
+	color: #ffffff;
+	height: 25px;
+	width: 35px;
+	margin-top: 18px;
+	margin-left: 5px;
+	float: left;
+}

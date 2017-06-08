@@ -1,0 +1,303 @@
+body
+{
+	margin: 0;
+	padding: 0;
+}
+
+a{
+	text-decoration: none;
+	color: #FFFFFF;
+	/*color: #f9be52;*/
+}
+
+input{
+	outline: none;
+}
+textarea{
+	resize: none;
+	outline: none;
+	font-family:arial,sans-serif;
+}
+.container{
+	width: 100%;
+	height: 5000px;
+	min-height: 650px;
+	background-color: #6C6C6C;
+	font: 100%;
+	color: #fff;
+}
+
+.menu{
+	width: 20%;
+	height: 100%;
+	height: auto!important;
+	min-height: 650px;
+	float: left;
+	text-align: center;
+	position: fixed;
+	font-weight: bold;
+}
+
+h3{
+	color: #f9be52;
+	position: relative;
+	transform: translate(2%,0);
+}
+
+.menu-headpicture {
+	width:100%;
+	float: left;
+	padding-top: 40px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.menu-headpicture img{
+	width:100px;
+	height: 100px;
+	border-radius: 100px;
+}
+
+.menu-personmessage{
+	width: 100%;
+	float: left;
+}
+
+.menu-personmessage div{
+	padding-top: 30px;
+}
+
+.menu-personmessage div:nth-child(2){
+	font-size: 0.9em;
+}
+
+.menu-list{
+	width: 100%;
+	float: left;
+	padding-top: 150px;
+	letter-spacing: 2px;
+	text-align: center;
+	/*position: relative;
+	transform: translate(0,120%);*/
+}
+
+.menu-list ul{
+	margin:0px;
+	padding: 0px;
+}
+
+.menu-list ul li{
+	list-style: none;
+	padding-top: 20px;
+}
+
+.notmenu{
+	width: 20%;
+	height: 650px;
+	float: left;
+	background: #6C6C6C;
+}
+
+.main{
+	width: 80%;
+	height: auto!important;
+	min-height: 650px;
+	float: left;
+	height: 650px;
+	overflow: auto;
+}
+
+.main-search{
+	height: 44px;
+	width: 100%;
+	position: relative;
+	text-align: center;
+	position: fixed;
+	z-index: 10;
+	background: #6C6C6C;
+	padding-top: 10px;
+}
+
+.main-search input{
+	border: solid 1px #d0d0d0;
+	border-right: 0px;
+	width: 30%;
+	height: 35px;
+	color: #d0d0d0;
+	float: left;
+	margin-left: 350px;
+}
+
+.icon{
+	height: 33px;
+	line-height: 33px;
+	width: 35px;
+	float: left;
+	background-color: #FFFFFF;
+	border: solid 1px #d0d0d0;
+	border-left: 0px;
+	text-align: center;
+	/*position: relative;
+	transform: translate(0,10%);*/
+}
+
+.icon img{
+	height: 25px;
+	position: relative;
+	top: 3px;
+}
+
+.face{
+	width: 600px;
+	height: 600px;
+	line-height: 600px;
+	border-radius: 600px;
+	background-color: #f9be52;
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translate(-50%);
+	box-shadow: 10px 20px 10px #000000;
+	position: fixed;
+	z-index: 10;
+}
+
+.face input{
+	outline: none;
+	border: 0px;
+	color: #FFFFFF;
+}
+
+.set-register,.set-login{
+	width: 400px;
+	height: 400px;
+	line-height: 400px;
+	/*background-color: #FFFFFF;*/
+	background-color: #f9be52;
+	position: relative;
+	transform: translate(25%,25%);
+	z-index: 10;
+	text-align: center;
+	/*display: none;*/
+}
+
+.set-login{
+	display: block;
+}
+.register{
+	height: 400px;
+	line-height: 400px;
+	width: 400px;
+	text-align: center;
+}
+
+.register table,.login table{
+	border: 0px;
+	color: #FFFFFF;
+	width: 400px;
+	height: 345px;
+	line-height: 345px;
+	margin:0px auto;
+}
+
+.register table tr,.login table tr{
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+}
+
+.register table input,.login table input{
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+	background-color:  #e89136;
+	color: #f5d7d7;
+}
+
+/*显示提示信息*/
+.register .message,.login .message{
+	font-size: 0.8em;
+	text-align: left;
+	height: 62px;
+}
+
+.register .code,.login .code{
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+	background-color:  #e89136;
+	float: left;
+}
+
+.code-img{
+	float: left;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 20px;
+}
+
+.register .next,.login .next{
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+	background-color: #f9be52;
+	float: left;
+	color: #FFFFFF;
+}
+
+.buttonarry{
+	width: 400px;
+	height: 50px;
+	line-height: 50px;
+	margin:0px auto;
+}
+
+.register .buttonarry input{
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color:  #e89136;
+}
+
+.register .buttonarry input:nth-child(1){
+	position: relative;
+	transform: translate(-20%,0);
+}
+
+.register .buttonarry input:nth-child(2){
+	position: relative;
+	transform: translate(20%,0);
+}
+
+/*显示登录界面*/
+
+.login{
+	height: 400px;
+	line-height: 400px;
+	width: 400px;
+	text-align: center;
+}
+
+.login .buttonarry input{
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color:  #e89136;
+	/*margin-left: 40px;*/
+}
+
+.login .buttonarry input:nth-child(1){
+	position: relative;
+	transform: translate(-25%,0);
+}
+
+.login .buttonarry input:nth-child(2){
+	position: relative;
+	transform: translate(25%,0);
+}

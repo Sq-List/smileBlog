@@ -1,0 +1,78 @@
+#classify{
+	width: 50%;
+	height: 40px;
+	margin-top: 54px;
+	position: relative;
+	transform: translate(20%,0);
+}
+
+#classify div{
+	width: 150px;
+	text-align: center;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	font-size: 1.3em;
+	margin-right: 20px;
+	border-bottom: 3px solid #f9be52;
+	opacity: 1;
+}
+
+.list{
+	width: 80%;
+	margin:0px auto;
+	min-height: 560px;
+}
+
+.collect-message{
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	border-top: 1px solid #8E8B8B;
+	border-bottom: 1px solid #f9be52;
+	margin-bottom: 6px;
+	background-color: #8E8B8B;
+}
+
+.like{
+	color:  #f9be52;
+	height: 80px;
+	width: 10%;
+	float: left;
+}
+
+.list-message{
+	width: 90%;
+	height: 80px;
+	float: left;
+}
+
+.passage-message,.abstract{
+	width: 100%;
+	height: 40px;
+	float: left;
+	line-height: 40px;
+}
+
+.passage-message div{
+	float: left;
+	padding-right: 30px;
+}
+
+.passage-message div:nth-child(2){
+	float: right;
+}
+
+.passage-author{
+	color:#bdb9b9;
+	font-size: 0.8em;
+}
+
+.abstract div{
+	text-align: left;
+	width: 100%;
+	height: 40px;
+	color: #BDB9B9;
+	line-height: 40px;
+}
