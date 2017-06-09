@@ -1,28 +1,71 @@
 package com.smileBlog.util;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 
 /**
  * Created by asus on 2017/6/3.
  */
 public class DataSource
 {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/smileBlog?characterEncoding=UTF-8";
+	static ComboPooledDataSource cpds = new ComboPooledDataSource("mysql");
 
-	static final String USER = "root";
-	static final String PASS = "123456";
-
-	public static Connection getConnection() throws SQLException
+	public static Connection getConnection()
 	{
-		MysqlDataSource dataSource = new MysqlDataSource();
-		dataSource.setUrl(DB_URL);
-		dataSource.setUser(USER);
-		dataSource.setPassword(PASS);
+		try
+		{
+			return cpds.getConnection();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-		return dataSource.getConnection();
+	public static void close(Connection conn, PreparedStatement pst, ResultSet rs)
+	{
+		if(rs != null)
+		{
+			try
+			{
+				rs.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		if(pst != null)
+		{
+			try
+			{
+				pst.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		if(conn != null)
+		{
+			try
+			{
+				conn.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

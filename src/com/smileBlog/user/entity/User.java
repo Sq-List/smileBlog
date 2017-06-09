@@ -11,7 +11,18 @@ public class User
 	private String nickname;
 	private String lable;
 	private String headPic;
-//	private int messageNumber;
+	private int articleNumber;
+	//	private int messageNumber;
+
+	public int getArticleNumber()
+	{
+		return articleNumber;
+	}
+
+	public void setArticleNumber(int articleNumber)
+	{
+		this.articleNumber = articleNumber;
+	}
 
 	public int getUid()
 	{

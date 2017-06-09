@@ -1,3 +1,5 @@
+/*固定左侧、搜索框、改变个人信息界面样式*/
+
 body
 {
 	margin: 0;
@@ -249,14 +251,4 @@ h3{
 	text-align: left;
 	background-color: #FFFFFF;
 	color: #000000;
-}
-
-.cover{
-	z-index: 21;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	background-color: #FFFFFF;
-	opacity: 0.4;
-	display: block;
 }

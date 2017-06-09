@@ -30,7 +30,7 @@ public class LoginFilter implements Filter
 		System.out.println(requestUri);
 
 //		如果请求页面为登录页面或验证码则通过
-		if (requestUri.indexOf("home") != -1 || requestUri.indexOf("Servlet") != -1 || requestUri.endsWith(".css") || requestUri.endsWith(".js") || requestUri.endsWith(".jpg") || requestUri.endsWith(".html"))
+		if (requestUri.indexOf("home") != -1 || requestUri.indexOf("Servlet") != -1 || requestUri.endsWith(".css") || requestUri.endsWith(".js") || requestUri.endsWith(".jpg") || requestUri.endsWith(".html") || requestUri.endsWith(".png"))
 		{
 			System.out.println("未被拦截");
 			chain.doFilter(req, resp);
@@ -43,7 +43,9 @@ public class LoginFilter implements Filter
 			{
 				System.out.println("拦截");
 				PrintWriter out = response.getWriter();
-				out.write("<script language='javascript'>alert('login first!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+//				将请求的页面存下来
+				request.getSession().setAttribute("oldRequest", request.getRequestURL().toString());
+				out.write("<script language='javascript'>alert('login first!');window.location.href='"+request.getContextPath()+"/home';</script>");
 			}
 			else
 			{

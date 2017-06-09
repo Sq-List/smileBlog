@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>home</title>
+	<link rel="stylesheet" type="text/css" href="../css/home.css">
+</head>
+<body>
+	<div class="container">
+		<div class="L">
+			<div>SMILEBLOG</div>
+		</div>
+		<div class="face">
+			<div class="eyes">
+				<div id="head-register">
+					<div>REGISTER</div>
+				</div>
+				<div id="head-login">
+					<div>LOGIN</div>
+				</div>
+			</div>
+			<div class="head-mouse">
+				<div>SEARCH</div>
+			</div>
+			<div class="set-register">
+				<div class="register">
+					<table>
+						<tr>
+							<td>UserName</td>
+							<td><input type="text" name="" value="unchangeable" onclick="setclear(this)"></td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="uesrname"></td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td><input type="text" name="" value="unchangeable" onclick="writepassword(this)"></td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="passwod"></td>
+						</tr>
+						<tr>
+							<td>ConfirmPasswrd</td>
+							<td><input type="password" name="" onclick="setclear(this)"></td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="confirm-passwrd"></td>
+						</tr>
+						<tr>
+							<td>VerifyCode</td>
+							<td>
+								<input type="text" name="" value=""  class="code" onclick="setclear(this)">
+								<div class="code-img">1234</div>
+								<input type="button" name="" value="change" class="next">
+							</td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="verify-code"></td>
+						</tr>
+					</table>
+					<div class="buttonarry">
+						<input type="submit" name="" value="submit">
+						<input type="button" name="" value="cancel" onclick="cancelregister()">
+					</div>
+				</div>
+			</div>
+			<div class="set-login">
+				<div class="login">
+					<table>
+						<tr>
+							<td>UserName</td>
+							<td><input type="text" name="" value="" onclick="setclear(this)"></td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="uesrname"></td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td><input type="text" name="" value="" onclick="writepassword(this)"></td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="passwod"></td>
+						</tr>
+						<tr>
+							<td>VerifyCode</td>
+							<td>
+								<input type="text" name="" value=""  class="code" onclick="setclear(this)">
+								<div class="code-img">1234</div>
+								<input type="button" name="" value="change" class="next">
+							</td>
+						</tr>
+						<tr class="message">
+							<td></td>
+							<td id="verify-code"></td>
+						</tr>
+					</table>
+					<div class="buttonarry">
+						<input type="submit" name="" value="login">
+						<input type="button" name="" value="cancel" onclick="cancellogin()">
+					</div>
+				</div>
+			</div>
+			<div class="set-search">
+				<div class="cancel">&times;</div>
+				<input type="search" name="" value="SEARCH">
+				<div class="icon"><img src="../image/search_icon.png"></div>
+			</div>
+		</div>
+		<div class="some">
+			<div>ABOUT</div>
+			<div>CONTACT</div>
+			<div>HELP</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/home.js"></script>
+</body>
+</html>

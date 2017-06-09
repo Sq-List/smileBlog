@@ -8,31 +8,6 @@ function like(){
 	}
 }
 
-// function chgpersondata(){
-// 	document.getElementById("personal-date").style.display='block';
-// }
-
-// $(
-//     function()
-//     {
-//         var aid = getUrlParam("aid");
-//         var uid = getUrlParam("uid");
-//         $.ajax(
-//             {
-//                 type : "POST",
-//                 url : "../AjaxGetArticleServlet",
-//                 datatype : "json",
-//                 data : "aid=" + aid + "&uid=" + uid,
-//
-//                 success : function()
-//                 {
-//
-//                 }
-//             }
-//         )
-//     }
-// )
-
 var menuHeadpicture=document.getElementsByClassName("menu-headpicture")[0].getElementsByTagName("img")[0];
 var myurl=menuHeadpicture.src;
 var personmessageArray=document.getElementsByClassName("menu-personmessage")[0].getElementsByTagName("div");

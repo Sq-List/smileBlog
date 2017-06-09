@@ -1,7 +1,9 @@
 package com.smileBlog.collection.servlet;
 
+import com.smileBlog.article.dao.ArticleDAO;
 import com.smileBlog.article.entity.Article;
 import com.smileBlog.collection.dao.CollectionDAO;
+import com.smileBlog.user.dao.UserDAO;
 import com.smileBlog.user.entity.User;
 
 import javax.servlet.ServletException;
@@ -22,6 +24,7 @@ import java.util.List;
 public class GetCollectionListServlet extends HttpServlet
 {
 	CollectionDAO collectionDAO = new CollectionDAO();
+	UserDAO userDAO = new UserDAO();
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
@@ -33,16 +36,19 @@ public class GetCollectionListServlet extends HttpServlet
 		try
 		{
 			List<Article> articleList = new ArrayList<Article>();
+			List<User> userList = new ArrayList<>();
 			List<Integer> aidList = collectionDAO.selectCollectionAidByUid(uid);
 
 			for(int i = 0; i < aidList.size(); i++)
 			{
 				int aid = aidList.get(i);
 				Article article = collectionDAO.selectArticleByAid(aid);
+				userList.add(userDAO.selectPicAndNicknameByUid(article.getOwnuid()));
 				articleList.add(article);
 			}
 
 			request.setAttribute("articleList", articleList);
+			request.setAttribute("userList", userList);
 
 			request.getRequestDispatcher("/jsp/collection.jsp").forward(request, response);
 		}
@@ -55,6 +61,6 @@ public class GetCollectionListServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
-
+		doPost(request, response);
 	}
 }

@@ -18,8 +18,8 @@ import java.sql.SQLException;
 /**
  * Created by asus on 2017/6/7.
  */
-//@WebServlet(name = "DownloadFileServlet")
-public class DownloadFileServlet extends HttpServlet
+//@WebServlet(name = "DownloadToolServlet")
+public class DownloadToolServlet extends HttpServlet
 {
 	ToolDAO toolDAO = new ToolDAO();
 

@@ -55,7 +55,10 @@ public class RegisterServlet extends HttpServlet
 		{
 			if(userDAO.add(user) == 1)
 			{
-				out.write("<script language='javascript'>alert('register success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+//				out.write("<script language='javascript'>alert('register success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+				int uid = userDAO.ajaxValidateLoginname(username);
+				request.setAttribute("uid", uid);
+				request.getRequestDispatcher("/AddMessageServlet").forward(request, response);
 			}
 			else
 			{

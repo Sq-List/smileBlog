@@ -6,15 +6,16 @@ import com.smileBlog.util.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by asus on 2017/6/3.
  */
 public class ArticleDAO
 {
-	Connection conn = null;
-	Statement stmt = null;
-	PreparedStatement ps = null;
+	private Connection conn = null;
+	private Statement stmt = null;
+	private PreparedStatement ps = null;
 
 	public void add(Article article) throws SQLException
 	{
@@ -28,6 +29,29 @@ public class ArticleDAO
 		ps.setString(4, article.getContentTxt());
 		ps.setTimestamp(5, new java.sql.Timestamp((new java.util.Date()).getTime()));
 		ps.executeUpdate();
+	}
+
+//	更新文章各个功能的数量
+	public int updateNumberByAid(int aid, String classification, String operate) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql;
+		if(operate.equalsIgnoreCase("delete"))
+		{
+			sql = "UPDATE article SET " + classification + "_number = " + classification + "_number - 1 WHERE aid = ?";
+		}
+		else
+		{
+			sql = "UPDATE article SET " + classification + "_number = " + classification + "_number + 1 WHERE aid = ?";
+		}
+
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, aid);
+
+		int flag = ps.executeUpdate();
+		conn.close();
+		return flag;
 	}
 
 	public List<Article> selectArticleByUid(int uid) throws SQLException
@@ -52,6 +76,7 @@ public class ArticleDAO
 			System.out.println("aid = " + article.getAid());
 		}
 
+		conn.close();
 		return articleList;
 	}
 
@@ -64,17 +89,40 @@ public class ArticleDAO
 		ps.setInt(1, aid);
 		ResultSet rs = ps.executeQuery();
 
-		rs.next();
 		Article article = new Article();
-		article.setAid(rs.getInt("aid"));
-		article.setOwnuid(rs.getInt("ownuid"));
-		article.setTitle(rs.getString("title"));
-		article.setContent(rs.getString("content"));
-		article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
-		article.setPageView(rs.getInt("collection_number"));
-		article.setLikeNumber(rs.getInt("like_number"));
-		article.setCommentNumber(rs.getInt("comment_number"));
+		while(rs.next())
+		{
+			article.setAid(rs.getInt("aid"));
+			article.setOwnuid(rs.getInt("ownuid"));
+			article.setTitle(rs.getString("title"));
+			article.setContent(rs.getString("content"));
+			article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+			article.setCollectionNumber(rs.getInt("collection_number"));
+			article.setLikeNumber(rs.getInt("like_number"));
+			article.setCommentNumber(rs.getInt("comment_number"));
+		}
 
+		conn.close();
+		return article;
+	}
+
+	public Article selectUidAndTitleByAid(int aid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT ownuid, title FROM article WHERE aid = ?;";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, aid);
+		ResultSet rs = ps.executeQuery();
+
+		Article article = new Article();
+		while(rs.next())
+		{
+			article.setOwnuid(rs.getInt("ownuid"));
+			article.setTitle(rs.getString("title"));
+		}
+
+		conn.close();
 		return article;
 	}
 
@@ -106,25 +154,53 @@ public class ArticleDAO
 			article.setTitle(rs.getString("title"));
 		}
 
+		conn.close();
 		return article;
 	}
 
-	public Article getPreArticleByAidAndUid(int aid, int uid) throws SQLException
+//	模糊搜索文章
+	public List<Article> selectArticleLikeNameOrContent(String str) throws SQLException
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT * FROM article WHERE aid<? AND uid=? ORDER BY aid DASC LIMIT 1";
+		String sql = "SELECT * FROM article WHERE title LIKE ? OR contentTxt LIKE ?;";
 		ps = conn.prepareStatement(sql);
-		ps.setInt(1, aid);
-		ps.setInt(2, uid);
+		ps.setString(1, "%" + str + "%");
+		ps.setString(2, "%" + str + "%");
 		ResultSet rs = ps.executeQuery();
 
-		rs.next();
-		Article article = new Article();
-		article.setAid(rs.getInt("aid"));
-		article.setOwnuid(rs.getInt("ownuid"));
-		article.setTitle(rs.getString("title"));
+		List<Article> articleList = new ArrayList<Article>();
+		while(rs.next())
+		{
+			Article article = new Article();
+			article.setAid(rs.getInt("aid"));
+			article.setOwnuid(rs.getInt("ownuid"));
+			article.setTitle(rs.getString("title"));
+			article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
 
-		return article;
+			articleList.add(article);
+		}
+
+		conn.close();
+		return articleList;
 	}
+
+//	public Article getPreArticleByAidAndUid(int aid, int uid) throws SQLException
+//	{
+//		conn = DataSource.getConnection();
+//
+//		String sql = "SELECT * FROM article WHERE aid<? AND uid=? ORDER BY aid DASC LIMIT 1";
+//		ps = conn.prepareStatement(sql);
+//		ps.setInt(1, aid);
+//		ps.setInt(2, uid);
+//		ResultSet rs = ps.executeQuery();
+//
+//		rs.next();
+//		Article article = new Article();
+//		article.setAid(rs.getInt("aid"));
+//		article.setOwnuid(rs.getInt("ownuid"));
+//		article.setTitle(rs.getString("title"));
+//
+//		return article;
+//	}
 }

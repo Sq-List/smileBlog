@@ -49,7 +49,7 @@ public class GetArticleServlet extends HttpServlet
 			request.setAttribute("preArticle", preArticle);
 			request.setAttribute("nextArticle", nextArticle);
 
-			request.getRequestDispatcher("/jsp/article.jsp").forward(request, response);
+			request.getRequestDispatcher("/GetArticleCommentListServlet").forward(request, response);
 		}
 		catch (SQLException e)
 		{

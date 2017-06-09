@@ -12,8 +12,8 @@ public class Article
 	private String title;
 	private String content;
 	private String contentTxt;
-	private int pageView;
 	private Date createTime;
+	private int collectionNumber;
 	private int likeNumber;
 	private int commentNumber;
 
@@ -67,14 +67,14 @@ public class Article
 		this.contentTxt = contentTxt;
 	}
 
-	public int getPageView()
+	public int getCollectionNumber()
 	{
-		return pageView;
+		return collectionNumber;
 	}
 
-	public void setPageView(int pageView)
+	public void setCollectionNumber(int pageView)
 	{
-		this.pageView = pageView;
+		this.collectionNumber = pageView;
 	}
 
 	public Date getCreateTime()

@@ -1,0 +1,10 @@
+/*页面禁用时的样式*/
+.cover{
+	z-index: 21;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-color: #FFFFFF;
+	opacity: 0.4;
+	display: block;
+}

@@ -34,14 +34,15 @@ public class SubmitArticleServlet extends HttpServlet
 		article.setTitle(request.getParameter("title"));
 		article.setContent(request.getParameter("content"));
 		article.setContentTxt(request.getParameter("contentTxt"));
-		System.out.println(request.getCharacterEncoding());
+//		System.out.println(request.getCharacterEncoding());
 		System.out.println(request.getParameter("contentTxt"));
 		article.setOwnuid(user.getUid());
-//		article.setCreateTime(String.valueOf((new Date()).getTime()));
 
 		try
 		{
 			articleDAO.add(article);
+
+			request.getRequestDispatcher("/UpdateUserArticleNumberServlet").forward(request, response);
 
 //			out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
 //			response.sendRedirect(request.getContextPath() + "/index");

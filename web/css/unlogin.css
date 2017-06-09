@@ -1,3 +1,4 @@
+/*未登录时搜索界面的样式*/
 body
 {
 	margin: 0;
@@ -50,6 +51,8 @@ h3{
 	padding-top: 40px;
     overflow: hidden;
     text-align: center;
+    height: 100px;
+    line-height: 100px;
 }
 
 .menu-headpicture img{
@@ -61,6 +64,7 @@ h3{
 .menu-personmessage{
 	width: 100%;
 	float: left;
+	height: 100px;
 }
 
 .menu-personmessage div{
@@ -154,12 +158,12 @@ h3{
 	border-radius: 600px;
 	background-color: #f9be52;
 	position: absolute;
-	top: 50px;
+	top: 30px;
 	left: 50%;
 	transform: translate(-50%);
 	box-shadow: 10px 20px 10px #000000;
 	position: fixed;
-	z-index: 10;
+	z-index: 22;
 }
 
 .face input{

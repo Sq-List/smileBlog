@@ -27,29 +27,36 @@ public class GetArticleListServlet extends HttpServlet
 			HttpServletResponse response) throws ServletException, IOException
 	{
 		System.out.println("index/post");
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException
-	{
-		System.out.println("index/get");
 
 		String uidString = request.getParameter("uid");
 
-		int uid;
-		User thisUser;
+		int uid = 0;
+		User thisUser = null;
+
+		System.out.println("123");
 
 		try
 		{
 			if(uidString != null && uidString.length() > 0)
 			{
+				System.out.println("uidString != null");
 				uid = Integer.parseInt(uidString);
 				thisUser = userDAO.selectUserByUid(uid);
 			}
 			else
 			{
-				thisUser = (User) request.getSession().getAttribute("user");
-				uid = thisUser.getUid();
+				if(request.getSession().getAttribute("user") != null)
+				{
+					System.out.println("user != null");
+					thisUser = (User) request.getSession().getAttribute("user");
+					uid = thisUser.getUid();
+				}
+				else
+				{
+					System.out.println("user == null");
+					response.sendRedirect(request.getContextPath() + "/home");
+					return;
+				}
 			}
 
 			System.out.println("uid = " + uid);
@@ -57,7 +64,7 @@ public class GetArticleListServlet extends HttpServlet
 			List<Article> articleList = articleDAO.selectArticleByUid(uid);
 
 			request.setAttribute("articleList", articleList);
-			request.setAttribute("uid", uid);
+//			request.setAttribute("uid", uid);
 			request.setAttribute("thisUser", thisUser);
 
 			request.getRequestDispatcher("/jsp/owner.jsp").forward(request, response);
@@ -66,5 +73,12 @@ public class GetArticleListServlet extends HttpServlet
 		{
 			e.printStackTrace();
 		}
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
+	{
+		System.out.println("index/get");
+		doPost(request, response);
 	}
 }

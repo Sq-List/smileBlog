@@ -1,44 +1,55 @@
-function clearcontent(obj){
-	obj.value="";
+var classify=document.getElementsByClassName("classify")[0].getElementsByTagName("div");
+var author=document.getElementsByClassName("AUTHOR");
+var article=document.getElementsByClassName("ARTICLE");
+var usersmessage=document.getElementsByClassName("users-message");
+var articlemessgae=document.getElementsByClassName("article-messgae");
+//点击文章和作者的标签，出现相应的信息界面
+for (var i=0;i<classify.length;i++) {
+	classify[i].i = i;
+	classify[i].onclick=function(){
+		var i = this.i;
+		for (var j=0;j<classify.length;j++) {
+			classify[j].style.opacity='0.7';
+			// classify[j].style.backgroundColor="#6C6C6C";
+		}
+		if(i==0){
+			for(n=0;n<article.length;n++){
+				article[n].style.display='block';
+			}
+			for(n=0;n<author.length;n++){
+				author[n].style.display='none';
+			}
+		}
+		else{
+			for(n=0;n<article.length;n++){
+				article[n].style.display='none';
+			}
+			for(n=0;n<author.length;n++){
+				author[n].style.display='block';
+			}
+		}
+		news(this);
+	}
+}
+//改变点击时标签的样式
+function news(obj) {
+	obj.style.opacity='1';
+	// obj.style.backgroundColor="#8E8B8B";
 }
 
-// 拿到地址栏的参数
-function getUrlParam(name)
-{
-    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-    if (r!=null)
-    {
-        return unescape(r[2]);
-    }
-
-    return null;
+for(var m=0;m<usersmessage.length;m++){
+	usersmessage[m].onmouseover=function(){
+		fun1(this);
+	}
+	usersmessage[m].onmouseout=function () {
+		fun2(this);
+	}
 }
-
-// $(
-//     function()
-//     {
-//         var $uid = getUrlParam("uid");
-//         $.ajax(
-//             {
-//                 type : "POST",
-//                 url : "../AjaxGetUserServlet",
-//                 datatype : "json",
-//                 data : "uid=" + $uid,
-//
-//                 success : function(obj)
-//                 {
-//                     obj = eval('(' + obj + ')');
-//                     var user = obj.user;
-//                     var $userDiv = $('<div class="menu"><h3><a href=' + user.uid + '"../html/owner-noUse.html?uid=">HOME</a></h3><div class="menu-headpicture"><img src="' + user.headPic + '"></div><br><div class="menu-personmessage"><div>' + user.nickname + '</div><div>' + user.lable + '</div></div></div>');
-//                     if(eval(obj.flag))
-//                     {
-//                         $userDiv.append('<div class="menu-list"><ul><li>NEW</li><li>COLLECTION</li><li>TOOL</li><li>EXIT</li></ul></div>');
-//                     }
-//
-//                     $($(".container")[0]).prepend($userDiv);
-//                 }
-//             }
-//         )
-//     }
-// )
+for(var m=0;m<articlemessgae.length;m++){
+	articlemessgae[m].onmouseover=function(){
+		fun1(this);
+	}
+	articlemessgae[m].onmouseout=function () {
+		fun2(this);
+	}
+}

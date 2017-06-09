@@ -1,20 +1,23 @@
 package com.smileBlog.user.dao;
 
+import com.smileBlog.message.entity.Message;
 import com.smileBlog.user.entity.User;
 import com.smileBlog.util.DataSource;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by asus on 2017/5/29.
  */
 public class UserDAO
 {
-	Connection conn = null;
-	Statement stmt = null;
-	PreparedStatement ps = null;
+	private Connection conn = null;
+	private Statement stmt = null;
+	private PreparedStatement ps = null;
 
 	public UserDAO()
 	{
@@ -71,8 +74,23 @@ public class UserDAO
 		ps.setString(2, stringMd5(user.getPassword()));
 		ps.setString(3, user.getNickname());
 		ps.setString(4, user.getHeadPic());
-		return  ps.executeUpdate();
+
+		int flag = ps.executeUpdate();
+		conn.close();
+		return flag;
 	}
+
+//	public int addMessage(int uid) throws SQLException
+//	{
+//		conn = DataSource.getConnection();
+//
+//		String sql = "INSERT INTO message(uid, number) VALUES(?, ?);";
+//		ps = conn.prepareStatement(sql);
+//		ps.setInt(1, uid);
+//		ps.setInt(2, 0);
+//
+//		return ps.executeUpdate();
+//	}
 
 //	通过用户名和密码查找用户
 	public User selectByUsernameAndPassword(String username, String password) throws SQLException
@@ -93,7 +111,7 @@ public class UserDAO
 			user.setUid(rs.getInt("uid"));
 			user.setUsername(rs.getString("username"));
 			user.setNickname(rs.getString("nickname"));
-			user.setHeadPic(rs.getString("head-pic"));
+			user.setHeadPic(rs.getString("head_pic"));
 			user.setLable(rs.getString("label"));
 		}
 		else
@@ -101,21 +119,28 @@ public class UserDAO
 			user = null;
 		}
 
+		conn.close();
 		return user;
 	}
 
 //	查找是否存在用户名
-	public boolean ajaxValidateLoginname(String username) throws SQLException
+	public int ajaxValidateLoginname(String username) throws SQLException
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT COUNT(1) FROM user WHERE username = ?;";
+		String sql = "SELECT uid FROM user WHERE username = ?;";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
 		ResultSet result = ps.executeQuery();
-		result.next();
-		int count = result.getInt(1);
-		return count == 0;
+
+		int uid = 0;
+		while(result.next())
+		{
+			uid = result.getInt(1);
+		}
+
+		conn.close();
+		return uid;
 	}
 
 	public User selectUserByUid(int uid) throws SQLException
@@ -134,7 +159,7 @@ public class UserDAO
 
 			user.setUid(rs.getInt("uid"));
 			user.setNickname(rs.getString("nickname"));
-			user.setHeadPic(rs.getString("head-pic"));
+			user.setHeadPic(rs.getString("head_pic"));
 			user.setLable(rs.getString("label"));
 		}
 		else
@@ -142,6 +167,68 @@ public class UserDAO
 			user = null;
 		}
 
+		conn.close();
 		return user;
+	}
+
+//	搜索用户的头像和昵称
+	public User selectPicAndNicknameByUid(int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT uid, head_pic, nickname FROM user WHERE uid = ?";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
+		ResultSet rs = ps.executeQuery();
+
+		User user = new User();
+		while(rs.next())
+		{
+			user.setUid(rs.getInt("uid"));
+			user.setHeadPic(rs.getString("head_pic"));
+			user.setNickname(rs.getString("nickname"));
+		}
+
+		conn.close();
+		return user;
+	}
+
+//	更新用户文章数量
+	public int updateArticleNumberByUid(int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "UPDATE user SET article_number = article_number + 1 WHERE uid = ?;";
+		ps = conn.prepareStatement(sql);
+
+		conn.close();
+		return ps.executeUpdate();
+	}
+
+//	模糊搜索用户
+	public List<User> selectUserLikeNickname(String str) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT * FROM user WHERE nickname LIKE ?;";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, "%" + str + "%");
+		ResultSet rs = ps.executeQuery();
+
+		List<User> userList = new ArrayList<User>();
+		while(rs.next())
+		{
+			User user = new User();
+			user.setUid(rs.getInt("uid"));
+			user.setNickname(rs.getString("nickname"));
+			user.setLable(rs.getString("lable"));
+			user.setHeadPic(rs.getString("head_pic"));
+			user.setArticleNumber(rs.getInt("article_number"));
+
+			userList.add(user);
+		}
+
+		conn.close();
+		return userList;
 	}
 }

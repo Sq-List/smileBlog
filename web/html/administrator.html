@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>administrator</title>
+	<link rel="stylesheet" type="text/css" href="../css/administrator.css">
+	<link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+	<div class="container">
+		<div class="menu">
+			<h3>HOME</h3>
+			<div class="menu-list">
+				<ul>
+					<li>USERS</li>
+					<li>ARTICLES</li>
+					<li>TOOLS</li>
+					<li><a href="home.html" target="_self">EXIT</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="notmenu">&nbsp;</div>
+		<div class="main">
+			<div class="main-search">
+				<div id="classify"></div>
+				<input type="search" name="search" value="search" onclick="clearcontent(this)">
+				<div class="icon"><img src="../image/search_icon.png"></div>
+			</div>
+
+
+			<div class="first-show">
+				<!-- <div>Smileblog</div>
+				<div>Administrator</div>
+				<div>Page</div> -->
+				<div class="buttons">
+					<button class="happy-button">:)</button>
+					<button class="normal-button">:|</button>
+					<button class="angry-button">:(</button>
+				</div>
+				<div class="smiley">
+					<div class="eyes">
+						<div class="eye"></div>
+						<div class="eye"></div>
+					</div>
+					<div class="mouth"></div>
+				</div>
+			</div>
+
+			
+			<div id="USERS">
+				<div class="users-message">
+					<div class="user-picture"><img src="../image/polygon.jpg"></div>
+					<div class="user-data">
+						<div class="user-name"><div>Hannah</div></div>
+						<div class="user-lable"><div>for better</div></div>
+						<div class="user-article">
+							<div>article quantity</div>
+							<div>12</div>
+						</div>
+					</div>
+					<div class="user-button">
+						<input type="button" name="" value="limit">
+						<input type="button" name="" value="delete">
+					</div>
+				</div>
+			</div>
+			<div id="ARTICLES">
+				<div class="article-messgae">
+					<div class="article-data">
+						<div class="passage">
+							<div class="passage-name">XXXXXXXXXXXXXXXXXX</div>
+							<div class="passage-author">BY ZZZ</div>
+							<div class="passage-time">2017-6-3 16:05</div>
+						</div>
+						<div class="passage-abstract">
+							<div>
+							XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+							</div>
+						</div>
+					</div>
+					<div class="article-button">
+						<input type="button" name="" value="delete">
+					</div>
+				</div>
+			</div>
+			<div id="TOOLS">
+				<div class="tool-message">
+					<div class="list-message">
+						<div class="tool-name">XXXXXXXXXXXXXXXXXX</div>
+						<div class="tool-author">BY ZZZ</div>
+						<div class="tool-time">2017-6-3 16:05</div>
+					</div>
+					<div class="tool-button">
+						<input type="button" name="" value="delete">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/administrator.js"></script>
+	<script type="text/javascript" src="../js/candt.js"></script>
+	<script type="text/javascript" src="../js/chgopacity.js"></script>
+	<script src="../js/jquery-3.2.1.min.js" charset="utf-8"></script>
+	<script src="../js/index.js" charset="utf-8"></script>
+</body>
+</html>

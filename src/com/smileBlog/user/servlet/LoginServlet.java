@@ -41,7 +41,18 @@ public class LoginServlet extends HttpServlet
 			{
 				request.getSession().setAttribute("user", user);
 
-				response.sendRedirect(request.getContextPath() + "/index");
+//				如果原请求的页面不空则跳转到原请求页面，否则跳转到首页
+				if(request.getSession().getAttribute("OldRequest") != null)
+				{
+					String oldRequest = request.getSession().getAttribute("oldRequest").toString();
+					request.getSession().setAttribute("oldRequest", "");
+					response.sendRedirect(oldRequest);
+					System.out.println(oldRequest);
+				}
+				else
+				{
+					response.sendRedirect(request.getContextPath() + "/index");
+				}
 			}
 			else
 			{

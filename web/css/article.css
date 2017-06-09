@@ -1,3 +1,4 @@
+/*具体文章界面样式*/
 .main-textarea{
 	width: 100%;
 	float: left;
@@ -56,21 +57,47 @@
 }
 .text-collect{
 	float: left;
-	width: 70%;
+	width: 15%;
 	text-align: left;
 	font-size: 1.3em;
 	height: 50px;
 	line-height: 50px;
 	color: #FFFFFF;
 }
-.text-like div,.text-collect div{
+.text-like div{
 	float: left;
 	position: relative;
 	transform: translate(0,-23%);
-	padding-right: 15px;
+	/*padding-right: 15px;*/
 }
-.text-like div:nth-child(2),.text-collect div:nth-child(2){
+
+#like{
+	font-size: 1.2em;
+}
+.text-like div:nth-child(2){
 	font-size: 0.8em;
+	padding-left: 20px;
+}
+#collect-number{
+	float: left;
+	position: relative;
+	transform: translate(0,-40%);
+	font-size: 0.8em;
+	padding-left: 20px;
+}
+.text-delete{
+	float: right;
+	width: 50%;
+	text-align: right;
+	height: 50px;
+	line-height: 50px;
+}
+.text-delete input{
+	width: 80px;
+	height: 30px;
+	background-color: #f9be52;
+	border: none;
+	color: #FFFFFF;
 }
 .text-area{
 	min-height: 350px;
@@ -97,7 +124,6 @@
 	min-height: 610px;
 	position: relative;
 	transform: translate(10%,0);
-	opacity: 0.7;
 	color: #fff;
 	float: left;
 }
@@ -109,6 +135,7 @@
 	border-bottom: 1px solid #f9be52;
 	margin-bottom: 6px;
 	background-color: #8E8B8B;
+	opacity: 0.7;
 }
 
 .commentator{
@@ -137,9 +164,10 @@
 }
 
 .message{
-	width: 85%;
+	width: 80%;
 	height: 100%;
-	float: right;
+	float: left;
+	padding-left: 10px;
 }
 
 .time{
@@ -149,13 +177,34 @@
 	float: left;
 	text-align: left;
 	font-size: 0.8em;
+	padding-top: 10px;
 }
 
 .content{
-	height: 75%;
+	height: 70%;
 	width: 100%;
 	float: left;
 	text-align: left;
+}
+
+.deletebutton{
+	width: 70px;
+	height: 100px;
+	float: left;
+	display: none;
+}
+
+.deletebutton input{
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color:#f9be52; 
+	border:0px;
+	position: relative;
+	transform: translate(0,35px);
+	color: #FFFFFF;
+	opacity: 1;
 }
 
 #frame{

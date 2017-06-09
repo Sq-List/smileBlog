@@ -23,6 +23,17 @@
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+    <!--Home页面-->
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>com.smileBlog.user.servlet.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>//</url-pattern>
+    </servlet-mapping>
+
     <!--ajax验证用户名-->
     <servlet>
         <servlet-name>AjaxValidateUsernameServlet</servlet-name>
@@ -73,6 +84,16 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
+    <!--获取用户的信息（头像、名字）-->
+    <!--<servlet>-->
+        <!--<servlet-name>GetUserListServlet</servlet-name>-->
+        <!--<servlet-class>com.smileBlog.user.servlet.GetUserListServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>GetUserListServlet</servlet-name>-->
+        <!--<url-pattern>/GetUserListServlet</url-pattern>-->
+    <!--</servlet-mapping>-->
+
     <!--更新用户的文章数-->
     <servlet>
         <servlet-name>UpdateUserArticleNumberServlet</servlet-name>
@@ -113,6 +134,26 @@
         <url-pattern>/AjaxGetMessageNumberServlet</url-pattern>
     </servlet-mapping>
 
+    <!--获取消息列表-->
+    <servlet>
+        <servlet-name>GetMessageListServlet</servlet-name>
+        <servlet-class>com.smileBlog.message.servlet.GetMessageListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetMessageListServlet</servlet-name>
+        <url-pattern>/news</url-pattern>
+    </servlet-mapping>
+
+    <!--获取评论消息-->
+    <servlet>
+        <servlet-name>GetCommentMessageServlet</servlet-name>
+        <servlet-class>com.smileBlog.comment.servlet.GetCommentMessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCommentMessageServlet</servlet-name>
+        <url-pattern>/GetCommentMessageServlet</url-pattern>
+    </servlet-mapping>
+
     <!--首页、获取文章-->
     <servlet>
         <servlet-name>GetArticleListServlet</servlet-name>
@@ -133,7 +174,7 @@
         <url-pattern>/article</url-pattern>
     </servlet-mapping>
 
-    <!--更新文章各个功能的数量-->
+    <!--更新文章赞、收藏、评论的数量-->
     <servlet>
         <servlet-name>UpdateArticleNumberServlet</servlet-name>
         <servlet-class>com.smileBlog.article.servlet.UpdateArticleNumberServlet</servlet-class>
@@ -185,12 +226,12 @@
 
     <!--ajax添加、删除收藏-->
     <servlet>
-        <servlet-name>AjaxCollectionServlet</servlet-name>
-        <servlet-class>com.smileBlog.collection.servlet.AjaxAddOrDelectCollectionServlet</servlet-class>
+        <servlet-name>AjaxAddOrDeleteCollectionServlet</servlet-name>
+        <servlet-class>com.smileBlog.collection.servlet.AjaxAddOrDeleteCollectionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AjaxCollectionServlet</servlet-name>
-        <url-pattern>/AjaxCollectionServlet</url-pattern>
+        <servlet-name>AjaxAddOrDeleteCollectionServlet</servlet-name>
+        <url-pattern>/AjaxAddOrDeleteCollectionServlet</url-pattern>
     </servlet-mapping>
 
     <!--获取工具列表-->
@@ -205,18 +246,18 @@
 
     <!--获取评论列表-->
     <servlet>
-        <servlet-name>GetCommentListServlet</servlet-name>
-        <servlet-class>com.smileBlog.comment.servlet.GetCommentListServlet</servlet-class>
+        <servlet-name>GetArticleCommentListServlet</servlet-name>
+        <servlet-class>com.smileBlog.comment.servlet.GetArticleCommentListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetCommentListServlet</servlet-name>
-        <url-pattern>/GetCommentListServlet</url-pattern>
+        <servlet-name>GetArticleCommentListServlet</servlet-name>
+        <url-pattern>/GetArticleCommentListServlet</url-pattern>
     </servlet-mapping>
 
     <!--ajax提交或删除评论-->
     <servlet>
         <servlet-name>AjaxSubmitCommentServlet</servlet-name>
-        <servlet-class>com.smileBlog.comment.servlet.AjaxAddOrDelectCommentServlet</servlet-class>
+        <servlet-class>com.smileBlog.comment.servlet.AjaxAddOrDeleteCommentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AjaxSubmitCommentServlet</servlet-name>
@@ -235,12 +276,12 @@
 
     <!--ajax添加、删除点赞-->
     <servlet>
-        <servlet-name>AjaxAddOrDelectLikeServlet</servlet-name>
-        <servlet-class>com.smileBlog.like.servlet.AjaxAddOrDelectLikeServlet</servlet-class>
+        <servlet-name>AjaxAddOrDeleteLikeServlet</servlet-name>
+        <servlet-class>com.smileBlog.like.servlet.AjaxAddOrDeleteLikeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AjaxAddOrDelectLikeServlet</servlet-name>
-        <url-pattern>/AjaxAddOrDelectLikeServlet</url-pattern>
+        <servlet-name>AjaxAddOrDeleteLikeServlet</servlet-name>
+        <url-pattern>/AjaxAddOrDeleteLikeServlet</url-pattern>
     </servlet-mapping>
     
     <!--获取文章-->
@@ -283,12 +324,22 @@
 
     <!--文件下载-->
     <servlet>
-        <servlet-name>DownloadFileServlet</servlet-name>
+        <servlet-name>DownloadToolServlet</servlet-name>
         <servlet-class>com.smileBlog.tool.servlet.DownloadToolServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DownloadFileServlet</servlet-name>
-        <url-pattern>/DownloadFileServlet</url-pattern>
+        <servlet-name>DownloadToolServlet</servlet-name>
+        <url-pattern>/DownloadToolServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--删除文件-->
+    <servlet>
+        <servlet-name>AjaxDelectToolServlet</servlet-name>
+        <servlet-class>com.smileBlog.tool.servlet.AjaxDelectToolServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxDelectToolServlet</servlet-name>
+        <url-pattern>/AjaxDelectToolServlet</url-pattern>
     </servlet-mapping>
 
     <!--搜索文章-->

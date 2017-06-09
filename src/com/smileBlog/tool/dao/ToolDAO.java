@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class ToolDAO
 {
-	Connection conn = null;
-	Statement stmt = null;
-	PreparedStatement ps = null;
+	private Connection conn = null;
+	private Statement stmt = null;
+	private PreparedStatement ps = null;
 
 //	添加工具
 	public int addTool(Tool tool) throws SQLException
@@ -27,7 +27,10 @@ public class ToolDAO
 		ps.setString(2, tool.getName());
 		ps.setString(3, tool.getSrc());
 		ps.setTimestamp(4, new java.sql.Timestamp((new java.util.Date()).getTime()));
-		return ps.executeUpdate();
+
+		int flag = ps.executeUpdate();
+		conn.close();
+		return flag;
 	}
 
 //	列出某个用户的所有工具
@@ -52,10 +55,11 @@ public class ToolDAO
 			toolList.add(tool);
 		}
 
+		conn.close();
 		return toolList;
 	}
 
-//	根据某个工具的名字找到路径
+//	根据某个工具的名字和用户的编号找到路径
 	public String selectSrcByUidAndName(String name, int uid) throws SQLException
 	{
 		conn = DataSource.getConnection();
@@ -72,6 +76,22 @@ public class ToolDAO
 			src = rs.getString("src");
 		}
 
+		conn.close();
 		return src;
+	}
+
+//	根据某个工具的名字和用户的编号删除工具
+	public int delectByUidAndName(String name, int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "DELETE FROM tool WHERE uid = ? AND name = ?";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
+		ps.setString(2, name);
+
+		int flag = ps.executeUpdate();
+		conn.close();
+		return flag;
 	}
 }

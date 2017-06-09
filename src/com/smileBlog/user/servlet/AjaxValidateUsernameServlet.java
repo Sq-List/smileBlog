@@ -29,7 +29,7 @@ public class AjaxValidateUsernameServlet extends HttpServlet
 
 		try
 		{
-			if(!userDAO.ajaxValidateLoginname(username))
+			if(userDAO.ajaxValidateLoginname(username) != 0)
 			{
 				out.println("false");
 			}
