@@ -31,6 +31,21 @@ public class ArticleDAO
 		ps.executeUpdate();
 	}
 
+//	删除文章
+	public int deleteByUidAndAid(int uid, int aid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "DELETE FROM article WHERE ownuid = ? AND aid = ?;";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
+		ps.setInt(2, aid);
+
+		int flag = ps.executeUpdate();
+		DataSource.close(conn, ps, null);
+		return flag;
+	}
+
 //	更新文章各个功能的数量
 	public int updateNumberByAid(int aid, String classification, String operate) throws SQLException
 	{
@@ -134,11 +149,11 @@ public class ArticleDAO
 		String sql;
 		if(to.equalsIgnoreCase("pre"))
 		{
-			sql = "SELECT * FROM article WHERE aid<? AND ownuid=? ORDER BY aid ASC LIMIT 1";
+			sql = "SELECT * FROM article WHERE aid<? AND ownuid=? ORDER BY aid DESC LIMIT 1";
 		}
 		else
 		{
-			sql = "SELECT * FROM article WHERE aid>? AND ownuid=? ORDER BY aid DESC LIMIT 1";
+			sql = "SELECT * FROM article WHERE aid>? AND ownuid=? ORDER BY aid ASC LIMIT 1";
 		}
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, aid);
@@ -163,10 +178,11 @@ public class ArticleDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT * FROM article WHERE title LIKE ? OR contentTxt LIKE ?;";
+		String sql = "SELECT * FROM article, user WHERE (user.uid = article.ownuid) AND (title LIKE ? OR contentTxt LIKE ? OR user.nickname LIKE ?);";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, "%" + str + "%");
 		ps.setString(2, "%" + str + "%");
+		ps.setString(3, "%" + str + "%");
 		ResultSet rs = ps.executeQuery();
 
 		List<Article> articleList = new ArrayList<Article>();
@@ -175,7 +191,9 @@ public class ArticleDAO
 			Article article = new Article();
 			article.setAid(rs.getInt("aid"));
 			article.setOwnuid(rs.getInt("ownuid"));
+			article.setOwnNickname(rs.getString("nickname"));
 			article.setTitle(rs.getString("title"));
+			article.setContentTxt(rs.getString("contentTxt"));
 			article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
 
 			articleList.add(article);

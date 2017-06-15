@@ -26,11 +26,12 @@ public class SearchArticleServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
+		System.out.println("SearchArticleServlet/post");
 //		ajax
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		String str = request.getParameter("str");
+		String str = request.getParameter("search");
 
 		try
 		{
@@ -47,10 +48,13 @@ public class SearchArticleServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
+		System.out.println("SearchArticleServlet/get");
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		String str = request.getParameter("str");
+		String str = request.getParameter("search");
+		System.out.println(str);
 
 		try
 		{

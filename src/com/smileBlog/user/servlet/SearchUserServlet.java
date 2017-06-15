@@ -25,10 +25,12 @@ public class SearchUserServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
+		System.out.println("SearchUserServlet/post");
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		String str = request.getParameter("str");
+		String str = request.getParameter("search");
 
 		try
 		{
@@ -45,10 +47,13 @@ public class SearchUserServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
+		System.out.println("SearchUserServlet/get");
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		String str = request.getParameter("str");
+		String str = request.getParameter("search");
+		System.out.println(str);
 
 		try
 		{

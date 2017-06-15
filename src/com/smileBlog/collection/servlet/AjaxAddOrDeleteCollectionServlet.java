@@ -46,8 +46,6 @@ public class AjaxAddOrDeleteCollectionServlet extends HttpServlet
 		if(operate.equalsIgnoreCase("add"))
 		{
 			String title = request.getAttribute("title").toString();
-			collection.setTitle(title);
-			collection.setOperateNickname(nickname);
 
 			try
 			{

@@ -45,8 +45,6 @@ public class AjaxAddOrDeleteLikeServlet extends HttpServlet
 		if(operate.equalsIgnoreCase("add"))
 		{
 			String title = request.getAttribute("title").toString();
-			like.setTitle(title);
-			like.setOperateNickname(nickname);
 
 			try
 			{

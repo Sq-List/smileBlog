@@ -24,7 +24,7 @@ public class MessageDAO
 		ps.setInt(1, uid);
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -33,14 +33,13 @@ public class MessageDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "UPDATE message SET ? = ? WHERE uid = ?;";
+		String sql = "UPDATE message SET " + classification + "_number = ? WHERE uid = ?;";
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, classification + "_number");
-		ps.setInt(2, 0);
-		ps.setInt(3, uid);
+		ps.setInt(1, 0);
+		ps.setInt(2, uid);
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -63,7 +62,7 @@ public class MessageDAO
 		ps.setInt(1, uid);
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -83,6 +82,7 @@ public class MessageDAO
 			num = rs.getInt(1);
 		}
 
+		DataSource.close(conn, ps, rs);
 		return num;
 
 
@@ -104,7 +104,7 @@ public class MessageDAO
 			number = rs.getInt(1);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return number;
 	}
 }

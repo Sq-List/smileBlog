@@ -21,18 +21,16 @@ public class CommentDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "INSERT INTO comment(operate_uid, operate_nickname, aid, title, uid, create_time, content) VALUES(?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO comment(operate_uid, aid, uid, create_time, content) VALUES(?, ?, ?, ?, ?);";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, comment.getOperateUid());
-		ps.setString(2, comment.getOperateNickname());
-		ps.setInt(3, comment.getAid());
-		ps.setString(4, comment.getTitle());
-		ps.setInt(5, comment.getUid());
-		ps.setTimestamp(6, new java.sql.Timestamp((new java.util.Date()).getTime()));
-		ps.setString(7, comment.getContent());
+		ps.setInt(2, comment.getAid());
+		ps.setInt(3, comment.getUid());
+		ps.setTimestamp(4, new java.sql.Timestamp((new java.util.Date()).getTime()));
+		ps.setString(5, comment.getContent());
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -41,14 +39,14 @@ public class CommentDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "DELECT FROM comment WHERE operate_uid = ? AND comid = ? AND aid = ?;";
+		String sql = "DELETE FROM comment WHERE operate_uid = ? AND comid = ? AND aid = ?;";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, comment.getOperateUid());
 		ps.setInt(2, comment.getComid());
 		ps.setInt(3, comment.getAid());
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -78,7 +76,7 @@ public class CommentDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT * FROM comment WHERE aid = ?;";
+		String sql = "SELECT * FROM comment, user WHERE user.uid = comment.operate_uid AND aid = ? ORDER BY create_time ASC;";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, aid);
 		ResultSet rs = ps.executeQuery();
@@ -89,14 +87,15 @@ public class CommentDAO
 			Comment comment = new Comment();
 			comment.setComid(rs.getInt("comid"));
 			comment.setOperateUid(rs.getInt("operate_uid"));
-//			comment.setOperateNickname(rs.getString("operate_nickname"));
+			comment.setOperateNickname(rs.getString("nickname"));
+			comment.setOperateHeadPic(rs.getString("head_pic"));
 			comment.setAid(rs.getInt("aid"));
 			comment.setContent(rs.getString("content"));
 			comment.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
 			commentList.add(comment);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return commentList;
 	}
 
@@ -105,7 +104,7 @@ public class CommentDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT * FROM comment WHERE uid = ?;";
+		String sql = "SELECT * FROM comment, user, article WHERE article.aid = comment.aid AND comment.uid = ? AND user.uid = comment.operate_uid;";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, uid);
 		ResultSet rs = ps.executeQuery();
@@ -116,14 +115,42 @@ public class CommentDAO
 			Comment comment = new Comment();
 			comment.setComid(rs.getInt("comid"));
 			comment.setOperateUid(rs.getInt("operate_uid"));
-//			comment.setOperateNickname(rs.getString("operate_nickname"));
+			comment.setOperateNickname(rs.getString("nickname"));
+			comment.setOperateHeadPic(rs.getString("head_pic"));
 			comment.setAid(rs.getInt("aid"));
+			comment.setTitle(rs.getString("title"));
 			comment.setContent(rs.getString("content"));
 			comment.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
 			commentList.add(comment);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return commentList;
+	}
+
+//	获取某用户对某文章最新的评论
+	public Comment selectCommentByUidAndAid(int operateUid, int aid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT * FROM comment, user WHERE user.uid = operate_uid AND operate_uid = ? AND aid = ? ORDER BY create_time DESC LIMIT 1";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, operateUid);
+		ps.setInt(2, aid);
+		ResultSet rs = ps.executeQuery();
+
+		Comment comment = new Comment();
+		while(rs.next())
+		{
+			comment.setComid(rs.getInt("comid"));
+			comment.setOperateUid(rs.getInt("operate_uid"));
+			comment.setOperateNickname(rs.getString("nickname"));
+			comment.setOperateHeadPic(rs.getString("head_pic"));
+			comment.setContent(rs.getString("content"));
+			comment.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+		}
+
+		DataSource.close(conn, ps, rs);
+		return comment;
 	}
 }

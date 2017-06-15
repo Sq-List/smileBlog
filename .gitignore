@@ -15,6 +15,7 @@ $RECYCLE.BIN/
 *.msp
 *.class
 out/
+fileUpload/
 
 # Windows shortcuts
 *.lnk

@@ -3,6 +3,8 @@ package com.smileBlog.tool.servlet;
 import com.smileBlog.tool.dao.ToolDAO;
 import com.smileBlog.tool.entity.Tool;
 import com.smileBlog.user.entity.User;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadException;
@@ -34,6 +36,7 @@ public class AjaxUploadServlet extends HttpServlet
 			HttpServletResponse response) throws ServletException, IOException
 	{
 		response.setContentType("text/html;character=utf-8");
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
 //		首先判断form的enctype是不是multipart/form-data
@@ -42,8 +45,9 @@ public class AjaxUploadServlet extends HttpServlet
 //			实例化一个硬盘文件工厂，用来配置上传组件ServletFileUpload
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 
-//			设置文件存放的临时文件，这个文件要存在，若不存在这创建
-			File tmpFileDir = new File("F:/IDEA/Project/web/WEB-INF/fileUpload/tmp//");
+//			设置文件存放的临时文件夹，这个文件要存在，若不存在这创建
+			File tmpFileDir = new File("F:/IDEA/Project/web/WEB-INF/fileUpload/tmp/");
+
 			if(!tmpFileDir.isDirectory() && tmpFileDir.exists() == false)
 			{
 
@@ -65,44 +69,42 @@ public class AjaxUploadServlet extends HttpServlet
 				@Override
 				public void update(long bytesRead, long contentLength, int i)
 				{
-//					System.out.println("上传的进度是" + (double)l * 100 / l1);
+					System.out.println("上传的进度是" + (double)bytesRead * 100 / contentLength);
 //					在session上添加一个进度的值，用于网页显示
-//					request.getSession().setAttribute("progress", ((double)bytesRead * 100 / contentLength));
+					request.getSession().setAttribute("progress", ((double)bytesRead * 100 / contentLength));
 //					request.getSession().setAttribute("");
 
-					BigDecimal br = new BigDecimal(bytesRead).divide(
-							new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
-					BigDecimal cl = new BigDecimal(contentLength).divide(
-							new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
-
-					// 剩余字节数
-					BigDecimal ll = cl.subtract(br);
-					System.out.print("剩余" + ll + "KB");
-					// 上传百分比
-					BigDecimal per = br.multiply(new BigDecimal(100)).divide(
-							cl, 2, BigDecimal.ROUND_HALF_UP);
-					System.out.print("已经完成" + per + "%");
-					request.getSession().setAttribute("progress", per);
-					// 上传用时
-					Long nowTime = System.currentTimeMillis();
-					Long useTime = (nowTime - beginTime) / 1000;
-					System.out.print("已经用时" + useTime + "秒");
-					// 上传速度
-					BigDecimal speed = new BigDecimal(0);
-					if (useTime != 0) {
-						speed = br.divide(new BigDecimal(useTime), 2,
-								BigDecimal.ROUND_HALF_UP);
-					}
-					System.out.print("上传速度为" + speed + "KB/S");
-					// 大致剩余时间
-					BigDecimal ltime = new BigDecimal(0);
-					if (!speed.equals(new BigDecimal(0))) {
-						ltime = ll.divide(speed, 0, BigDecimal.ROUND_HALF_UP);
-//						request.getSession().setAttribute("lastTime", ltime);
-					}
-					System.out.print("大致剩余时间为" + ltime + "秒");
-
-					System.out.println();
+//					BigDecimal br = new BigDecimal(bytesRead).divide(
+//							new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
+//					BigDecimal cl = new BigDecimal(contentLength).divide(
+//							new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
+//
+//					// 剩余字节数
+//					BigDecimal ll = cl.subtract(br);
+//					System.out.print("剩余" + ll + "KB");
+//					// 上传百分比
+//					BigDecimal per = br.multiply(new BigDecimal(100)).divide(
+//							cl, 2, BigDecimal.ROUND_HALF_UP);
+//					System.out.print("已经完成" + per + "%");
+//					request.getSession().setAttribute("progress", per);
+//					// 上传用时
+//					Long nowTime = System.currentTimeMillis();
+//					Long useTime = (nowTime - beginTime) / 1000;
+//					System.out.print("已经用时" + useTime + "秒");
+//					// 上传速度
+//					BigDecimal speed = new BigDecimal(0);
+//					if (useTime != 0) {
+//						speed = br.divide(new BigDecimal(useTime), 2,
+//								BigDecimal.ROUND_HALF_UP);
+//					}
+//					System.out.print("上传速度为" + speed + "KB/S");
+//					// 大致剩余时间
+//					BigDecimal ltime = new BigDecimal(0);
+//					if (!speed.equals(new BigDecimal(0))) {
+//						ltime = ll.divide(speed, 0, BigDecimal.ROUND_HALF_UP);
+////						request.getSession().setAttribute("lastTime", ltime);
+//					}
+//					System.out.println("大致剩余时间为" + ltime + "秒");
 				}
 			};
 
@@ -136,6 +138,7 @@ public class AjaxUploadServlet extends HttpServlet
 			if(itemList != null)
 			{
 				File fileDir = new File("F:/IDEA/Project/web/WEB-INF/fileUpload/");
+
 				if(!tmpFileDir.isDirectory() && fileDir.exists() == false)
 				{
 					fileDir.mkdirs();
@@ -143,8 +146,9 @@ public class AjaxUploadServlet extends HttpServlet
 				System.out.println(fileDir.getAbsolutePath());
 
 				Tool tool = new Tool();
-//				tool.setUid(((User)request.getSession().getAttribute("user")).getUid());
-				tool.setUid(1);
+				int uid = ((User)request.getSession().getAttribute("user")).getUid();
+				tool.setUid(uid);
+//				tool.setUid(1);
 
 				for(int i = 0; i < itemList.size(); i++)
 				{
@@ -169,7 +173,10 @@ public class AjaxUploadServlet extends HttpServlet
 						{
 							if(toolDAO.addTool(tool) == 1)
 							{
-								out.print("true");
+								System.out.println("add tool already.");
+								tool = toolDAO.selectByNameAndUid(item.getName(), uid);
+
+								out.print(JSONObject.fromObject(tool));
 							}
 							else
 							{

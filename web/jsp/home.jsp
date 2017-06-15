@@ -10,10 +10,10 @@
 </head>
 <body>
 	<div class="container">
-		<div class="L">
+		<div class="L" id="SMILEBLOG">
 			<div>SMILEBLOG</div>
 		</div>
-		<div class="face">
+		<div class="face" id="face">
 			<div class="eyes">
 				<div id="head-register">
 					<div>REGISTER</div>
@@ -33,24 +33,21 @@
 							<td><input type="text" name="username" id="username" value="unchangeable" onclick="setclear(this)"></td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="usernameError"></td>
+							<td colspan="2" id="usernameError"></td>
 						</tr>
 						<tr>
 							<td>Password</td>
 							<td><input type="password" name="password" id="password" value="unchangeable" onclick="writepassword(this)"></td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="passwordError"></td>
+							<td colspan="2" id="passwordError"></td>
 						</tr>
 						<tr>
 							<td>ConfirmPasswrd</td>
 							<td><input type="password" name="confirmPassword" id="confirmPassword" onclick="setclear(this)"></td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="confirmPasswordError"></td>
+							<td colspan="2" id="confirmPasswordError"></td>
 						</tr>
 						<tr>
 							<td>VerifyCode</td>
@@ -61,8 +58,7 @@
 							</td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="verifyCodeError"></td>
+							<td colspan="2" id="verifyCodeError"></td>
 						</tr>
 					</table>
 					<div class="buttonarry">
@@ -79,16 +75,14 @@
 							<td><input type="text" name="username" id="loginUsername" value="" onclick="setclear(this)"></td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="loginUsernameError"></td>
+							<td colspan="2" id="loginUsernameError"></td>
 						</tr>
 						<tr>
 							<td>Password</td>
 							<td><input type="password" name="password" id="loginPassword" value="" onclick="writepassword(this)"></td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="loginPasswordError"></td>
+							<td colspan="2" id="loginPasswordError"></td>
 						</tr>
 						<tr>
 							<td>VerifyCode</td>
@@ -99,8 +93,7 @@
 							</td>
 						</tr>
 						<tr class="message">
-							<td></td>
-							<td id="loginVerifyCodeError"></td>
+							<td colspan="2" id="loginVerifyCodeError"></td>
 						</tr>
 					</table>
 					<div class="buttonarry">
@@ -109,13 +102,13 @@
 					</div>
 				</div>
             </form>
-			<form class="set-search" id="set-search" action="" method="">
+			<form class="set-search" id="to-search" action="./search" method="get">
 				<div class="cancel">&times;</div>
-				<input type="search" name="" value="SEARCH">
-				<div class="icon"><img src="<c:url value="/image/search_icon.png"/>"></div>
-        </form>
+                <input type="search" name="search" placeholder="SEARCH">
+				<div class="icon" id="searchIcon"><img src="<c:url value="/image/search_icon.png"/>"></div>
+            </form>
 		</div>
-		<div class="some">
+		<div class="some" id="some">
 			<div>ABOUT</div>
 			<div>CONTACT</div>
 			<div>HELP</div>
@@ -123,5 +116,6 @@
 	</div>
     <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./js/home.js"></script>
+    <script type="text/javascript" src="./js/toSearch.js"></script>
 </body>
 </html>

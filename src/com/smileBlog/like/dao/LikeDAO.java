@@ -4,6 +4,8 @@ import com.smileBlog.like.entity.Like;
 import com.smileBlog.util.DataSource;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by asus on 2017/6/8.
@@ -19,17 +21,15 @@ public class LikeDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "INSERT INTO smile(operate_uid, operate_nickname, aid, title, uid, create_time) VALUES(?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO smile(operate_uid, aid, uid, create_time) VALUES(?, ?, ?, ?);";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, like.getOperateUid());
-		ps.setString(2, like.getOperateNickname());
-		ps.setInt(3, like.getAid());
-		ps.setString(4, like.getTitle());
-		ps.setInt(5, like.getUid());
-		ps.setTimestamp(6, new java.sql.Timestamp((new java.util.Date()).getTime()));
+		ps.setInt(2, like.getAid());
+		ps.setInt(3, like.getUid());
+		ps.setTimestamp(4, new java.sql.Timestamp((new java.util.Date()).getTime()));
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -38,13 +38,13 @@ public class LikeDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "DELECT FROM smile WHERE operate_uid = ? AND aid = ?;";
+		String sql = "DELETE FROM smile WHERE operate_uid = ? AND aid = ?;";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, like.getOperateUid());
 		ps.setInt(2, like.getAid());
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -86,7 +86,34 @@ public class LikeDAO
 			flag = rs.getInt(1);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return flag;
+	}
+
+//	根据用户查找赞了自己文章的人
+	public List<Like> selectByUid(int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT * FROM smile, user, article WHERE smile.uid = ? AND smile.operate_uid = user.uid AND smile.aid = article.aid";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
+		ResultSet rs = ps.executeQuery();
+
+		List<Like> likeList = new ArrayList<>();
+		while(rs.next())
+		{
+			Like like = new Like();
+			like.setOperateUid(rs.getInt("operate_uid"));
+			like.setOperateNickname(rs.getString("nickname"));
+			like.setOperateHeadPic(rs.getString("head_pic"));
+			like.setAid(rs.getInt("aid"));
+			like.setTitle(rs.getString("title"));
+			like.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+			likeList.add(like);
+		}
+
+		DataSource.close(conn, ps, rs);
+		return likeList;
 	}
 }

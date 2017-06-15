@@ -33,13 +33,15 @@
 		</div>
 		<div class="notmenu">&nbsp;</div>
 		<div class="main">
-			<div class="main-search">
-				<input type="search" name="search" value="search" onclick="clearcontent(this)">
-				<div class="icon"><img src="./image/search_icon.png"></div>
-			</div>
+            <form class="main-search" id="to-search" action="./search" method="get">
+                <input type="search" name="search" placeholder="search">
+                <div class="icon" id="searchIcon">
+                    <img src="./image/search_icon.png">
+                </div>
+            </form>
 			<div id="classify">
 				<div>TOOL</div>
-				<div class="f-upload">upload</div>
+				<div class="f-upload" id="f-upload">upload</div>
 			</div>
 			<div class="list" id="list">
                 <c:forEach items="${toolList}" var="tool">
@@ -50,34 +52,13 @@
                         <div class="file-time">${tool.createTime.year + 1990}-${tool.createTime.month + 1}-${tool.createTime.date}</div>
                     </div>
                 </c:forEach>
-				<%--<div class="list-message">--%>
-					<%--<div class="file-name">XXXXXXXXXXXXXXXXXX</div>--%>
-					<%--<div class="delete">delete</div>--%>
-					<%--<div class="download">download</div>--%>
-					<%--<div class="file-time">2017-6-3</div>--%>
-				<%--</div>--%>
-				<%--<div class="list-message">--%>
-					<%--<div class="file-name">XXXXXXXXXXXXXXXXXXXXXXX</div>--%>
-					<%--<div class="delete">delete</div>--%>
-					<%--<div class="download">download</div>--%>
-					<%--<div class="file-time">2017-6-2</div>--%>
-				<%--</div>--%>
 			</div>
-			<!-- <div class="upload-chose">
-				<div class="chose">
-					<input type="button" name="" value="chose">
-				</div>
-				<div class="progress"><div></div></div>
-				<div class="buttonArr">
-					<input type="submit" name="" value="upload">
-					<input type="button" name="" value="delete">
-				</div>
-			</div> -->
 		</div>
 	</div>
     <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./js/tool.js"></script>
 	<script type="text/javascript" src="./js/forbidden.js"></script>
 	<script type="text/javascript" src="./js/container.js"></script>
+    <script type="text/javascript" src="./js/toSearch.js"></script>
 </body>
 </html>

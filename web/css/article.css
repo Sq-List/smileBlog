@@ -138,6 +138,16 @@
 	opacity: 0.7;
 }
 
+.comment:hover
+{
+  opacity: 1;
+}
+
+.comment:hover .deletebutton
+{
+  display: block;
+}
+
 .commentator{
 	width: 10%;
 	height: 100%;

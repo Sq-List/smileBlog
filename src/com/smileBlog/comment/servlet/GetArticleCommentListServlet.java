@@ -1,5 +1,6 @@
 package com.smileBlog.comment.servlet;
 
+import com.smileBlog.article.entity.Article;
 import com.smileBlog.comment.dao.CommentDAO;
 import com.smileBlog.comment.entity.Comment;
 import com.smileBlog.user.dao.UserDAO;
@@ -32,15 +33,9 @@ public class GetArticleCommentListServlet extends HttpServlet
 		try
 		{
 			List<Comment> commentList = commentDAO.selectByAid(aid);
-			List<User> userList = new ArrayList<>();
-			for(int i = 0; i < commentList.size(); i++)
-			{
-				User newUser = userDAO.selectPicAndNicknameByUid(commentList.get(i).getUid());
-				userList.add(newUser);
-			}
 
-			request.setAttribute("userList", userList);
-			request.setAttribute("commentList", commentList);
+			Article article = (Article) request.getAttribute("article");
+			article.setCommentList(commentList);
 
 			if(request.getSession().getAttribute("user") != null)
 			{

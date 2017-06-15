@@ -35,10 +35,12 @@
 		</div>
 		<div class="notmenu">&nbsp;</div>
 		<div class="main">
-			<div class="main-search">
-				<input type="search" name="search" value="search" onclick="clearcontent(this)">
-				<div class="icon"><img src="./image/search_icon.png"></div>
-			</div>
+            <form class="main-search" id="to-search" action="./search" method="get">
+                <input type="search" name="search" placeholder="search">
+                <div class="icon" id="searchIcon">
+                    <img src="./image/search_icon.png">
+                </div>
+            </form>
 			<div id="classify">
 				<div>COLLECTION</div>
 			</div>
@@ -82,5 +84,6 @@
 	<script type="text/javascript" src="./js/chgopacity.js"></script>
 	<script type="text/javascript" src="./js/forbidden.js"></script>
 	<script type="text/javascript" src="./js/smile.js"></script>
+    <script type="text/javascript" src="./js/toSearch.js"></script>
 </body>
 </html>

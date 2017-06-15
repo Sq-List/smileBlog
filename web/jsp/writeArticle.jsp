@@ -13,46 +13,45 @@
 <body>
 <div class="container">
     <div class="menu">
-        <h3><a href="<c:url value='/index?uid=${sessionScope.user.uid}'/>">HOME</a></h3>
+        <h3><a href="<c:url value="/index?uid=${user.uid}" />">HOME</a></h3>
         <div class="menu-headpicture">
-            <%--挑出框--%>
-            <img src="${user.headPic}">
+            <img src="<c:url value="${user.headPic}" />">
         </div>
         <br>
         <div class="menu-personmessage">
             <div>${user.nickname}</div>
-            <div>${uesr.lable}</div>
+            <div>${user.lable}</div>
         </div>
         <div class="menu-list">
             <ul>
-                <li>NEW</li>
-                <li>COLLECTION</li>
-                <li>TOOL</li>
-                <li>EXIT</li>
+                <li><a href="./new" target="_self">NEW</a></li>
+                <li><a href="./collection" target="_self">COLLECTION</a></li>
+                <li><a href="./tool" target="_self">TOOL</a></li>
+                <li><a href="./exit" target="_self">EXIT</a></li>
             </ul>
         </div>
     </div>
 	<div class="notmenu">&nbsp;</div>
 	<div class="main">
-		<div class="main-search">
-			<select >
-				<option>文章</option>
-				<option>博主</option>
-			</select>
-			<input type="text" name="search" value="文章/博主搜索" onclick="clearcontent(this)">
-		</div>
+        <form class="main-search" id="to-search" action="./search" method="get">
+            <input type="search" name="search" placeholder="search">
+            <div class="icon" id="searchIcon">
+                <img src="./image/search_icon.png">
+            </div>
+        </form>
 		<div class="main-textarea">
 			<form action="<c:url value='/SubmitArticleServlet' />" id="editor" method="post">
 				<input type="text" id="title" name="title" placeholder="填写文章标题">
 				<script id="container" name="content" type="text/plain">请输入正文</script>
                 <input type="hidden" id="contentTxt" name="contentTxt">
-				<input type="submit" value="发布">
-				<input type="button" onclick="submitArtical()" value="11">
+				<input type="submit" id="submitBtn" value="发布">
+				<%--<input type="button" onclick="submitArtical()" value="11">--%>
 			</form>
 		</div>
 	</div>
 </div>
 <script src="<c:url value='/js/jquery-3.2.1.min.js' />" charset="utf-8"></script>
+<script type="text/javascript" src="./js/toSearch.js"></script>
 <script type="text/javascript" src="<c:url value='/js/search.js' />"></script>
 <!-- 配置文件 -->
 <script type="text/javascript" src="<c:url value='/neditor.config.js' />"></script>
@@ -64,7 +63,7 @@
 	{
         toolbars:
         [
-          	['bold', 'italic', 'underline', 'blockquote', 'insertcode', 'insertorderedlist', 'insertunorderedlist', 'link', 'simpleupload', 'removeformat', 'drafts']
+          	['fontsize', 'bold', 'italic', 'underline', 'blockquote', 'insertcode', 'insertorderedlist', 'insertunorderedlist', 'link', 'simpleupload', 'removeformat', 'drafts']
         ],
         initialFrameHeight: 600,
 	    autoHeightEnabled: false,

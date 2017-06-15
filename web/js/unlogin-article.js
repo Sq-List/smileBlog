@@ -1,12 +1,18 @@
 var login=document.getElementById("login");
 var register=document.getElementById("register");
 
-register.onclick=function(){
-	setreg();
+if(register != null)
+{
+    register.onclick=function(){
+        setreg();
+    }
 }
 
-login.onclick=function(){
-	setlogin();
+if(login != null)
+{
+    login.onclick=function(){
+        setlogin();
+    }
 }
 
 function clearcontent(obj){

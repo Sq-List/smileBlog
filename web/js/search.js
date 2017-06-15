@@ -37,19 +37,30 @@ function news(obj) {
 	// obj.style.backgroundColor="#8E8B8B";
 }
 
-for(var m=0;m<usersmessage.length;m++){
-	usersmessage[m].onmouseover=function(){
-		fun1(this);
-	}
-	usersmessage[m].onmouseout=function () {
-		fun2(this);
-	}
+
+function GetQueryString(name)
+{
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  unescape(r[2]); return null;
 }
-for(var m=0;m<articlemessgae.length;m++){
-	articlemessgae[m].onmouseover=function(){
-		fun1(this);
-	}
-	articlemessgae[m].onmouseout=function () {
-		fun2(this);
-	}
-}
+
+$(
+    function()
+    {
+        var $title = $(".title");
+        var $author = $(".author");
+        var $contentTxt = $(".contentTxt");
+
+        var searchKey = GetQueryString("search");
+        $(".author").removeHighlight();
+        console.log(searchKey);
+        if(searchKey)
+        {
+            $(".title").highlight(searchKey);
+            $(".author").highlight(searchKey);
+            $(".contextTxt").highlight(searchKey);
+        }
+
+    }
+)

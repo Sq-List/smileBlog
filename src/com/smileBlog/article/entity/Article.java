@@ -1,6 +1,9 @@
 package com.smileBlog.article.entity;
 
+import com.smileBlog.comment.entity.Comment;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by asus on 2017/6/3.
@@ -9,10 +12,12 @@ public class Article
 {
 	private int aid;
 	private int ownuid;
+	private String ownNickname;
 	private String title;
 	private String content;
 	private String contentTxt;
 	private Date createTime;
+	private List<Comment> commentList;
 	private int collectionNumber;
 	private int likeNumber;
 	private int commentNumber;
@@ -35,6 +40,16 @@ public class Article
 	public void setOwnuid(int ownuid)
 	{
 		this.ownuid = ownuid;
+	}
+
+	public String getOwnNickname()
+	{
+		return ownNickname;
+	}
+
+	public void setOwnNickname(String ownNickname)
+	{
+		this.ownNickname = ownNickname;
 	}
 
 	public String getTitle()
@@ -85,6 +100,16 @@ public class Article
 	public void setCreateTime(Date createTime)
 	{
 		this.createTime = createTime;
+	}
+
+	public List<Comment> getCommentList()
+	{
+		return commentList;
+	}
+
+	public void setCommentList(List<Comment> commentList)
+	{
+		this.commentList = commentList;
 	}
 
 	public int getLikeNumber()

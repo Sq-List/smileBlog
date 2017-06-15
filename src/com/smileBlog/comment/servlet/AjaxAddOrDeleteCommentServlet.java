@@ -46,17 +46,16 @@ public class AjaxAddOrDeleteCommentServlet extends HttpServlet
 		if(operate.equalsIgnoreCase("add"))
 		{
 			String content = request.getParameter("commentContent");
-			String title = request.getAttribute("title").toString();
 
 			comment.setContent(content);
-			comment.setTitle(title);
-			comment.setOperateNickname(nickname);
 
 			try
 			{
 				if(commentDAO.add(comment) == 1)
 				{
 //					out.print("true");
+					comment = commentDAO.selectCommentByUidAndAid(operateUid, aid);
+					request.setAttribute("comment", comment);
 					request.getRequestDispatcher("/UpdateMessageNumberServlet").forward(request, response);
 				}
 				else

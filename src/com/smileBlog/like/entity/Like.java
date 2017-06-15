@@ -10,6 +10,7 @@ public class Like
 	private int lid;
 	private int operateUid;
 	private String operateNickname;
+	private String operateHeadPic;
 	private int aid;
 	private String title;
 	private int uid;
@@ -43,6 +44,16 @@ public class Like
 	public void setOperateNickname(String operateNickname)
 	{
 		this.operateNickname = operateNickname;
+	}
+
+	public String getOperateHeadPic()
+	{
+		return operateHeadPic;
+	}
+
+	public void setOperateHeadPic(String operateHeadPic)
+	{
+		this.operateHeadPic = operateHeadPic;
 	}
 
 	public int getAid()

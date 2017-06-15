@@ -37,37 +37,37 @@ public class AjaxDelectToolServlet extends HttpServlet
 		System.out.println(filename);
 		int uid = ((User)request.getSession().getAttribute("user")).getUid();
 
-//		try
-//		{
-//			String src = toolDAO.selectSrcByUidAndName(filename, uid);
-//			File file;
-//			if(src != null)
-//			{
-//				file = new File(src);
-//				if(toolDAO.delectByUidAndName(filename, uid) == 1)
-//				{
-//					if(file.delete())
-//					{
-//						out.print("true");
-//					}
-//					else
-//					{
-//						out.print("file delect fail!");
-//					}
-//				}
-//				else
-//				{
-//					out.print("data base delect fail!");
-//				}
-//			}
-//			else
-//			{
-//				out.print("file don't exit!");
-//			}
-//		}
-//		catch (SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
+		try
+		{
+			String src = toolDAO.selectSrcByUidAndName(filename, uid);
+			File file;
+			if(src != null)
+			{
+				file = new File(src);
+				if(toolDAO.delectByUidAndName(filename, uid) == 1)
+				{
+					if(file.delete())
+					{
+						out.print("true");
+					}
+					else
+					{
+						out.print("file delect fail!");
+					}
+				}
+				else
+				{
+					out.print("data base delect fail!");
+				}
+			}
+			else
+			{
+				out.print("file don't exit!");
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

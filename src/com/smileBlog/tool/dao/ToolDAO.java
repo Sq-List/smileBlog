@@ -29,7 +29,7 @@ public class ToolDAO
 		ps.setTimestamp(4, new java.sql.Timestamp((new java.util.Date()).getTime()));
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -55,7 +55,7 @@ public class ToolDAO
 			toolList.add(tool);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return toolList;
 	}
 
@@ -76,7 +76,7 @@ public class ToolDAO
 			src = rs.getString("src");
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return src;
 	}
 
@@ -91,7 +91,29 @@ public class ToolDAO
 		ps.setString(2, name);
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
+	}
+
+//	找出某个工具
+	public Tool selectByNameAndUid(String name, int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT * FROM tool WHERE name = ? AND uid = ?;";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, name);
+		ps.setInt(2, uid);
+		ResultSet rs = ps.executeQuery();
+
+		Tool tool = new Tool();
+		while(rs.next())
+		{
+			System.out.println("rs.");
+			tool.setName(name);
+			tool.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+		}
+
+		return tool;
 	}
 }

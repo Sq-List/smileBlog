@@ -22,7 +22,7 @@ input{
 
 .L{
 	position: absolute;
-	height: 400px;
+	/*height: 400px;*/
 	text-align: center;
 	left: 25px;
 }

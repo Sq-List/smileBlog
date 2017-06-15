@@ -21,17 +21,15 @@ public class CollectionDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "INSERT INTO collection(operate_uid, operate_nickname, aid, title, uid, create_time) VALUES(?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO collection(operate_uid, aid, uid, create_time) VALUES(?, ?, ?, ?)";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, collection.getOperateUid());
-		ps.setString(2, collection.getOperateNickname());
-		ps.setInt(3, collection.getAid());
-		ps.setString(4, collection.getTitle());
-		ps.setInt(5, collection.getUid());
-		ps.setTimestamp(6, new java.sql.Timestamp((new java.util.Date()).getTime()));
+		ps.setInt(2, collection.getAid());
+		ps.setInt(3, collection.getUid());
+		ps.setTimestamp(4, new java.sql.Timestamp((new java.util.Date()).getTime()));
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -45,7 +43,7 @@ public class CollectionDAO
 		ps.setInt(2, collection.getOperateUid());
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -65,7 +63,7 @@ public class CollectionDAO
 			aidList.add(rs.getInt(1));
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return aidList;
 	}
 
@@ -85,7 +83,7 @@ public class CollectionDAO
 		article.setTitle(rs.getString("title"));
 		article.setContentTxt(rs.getString("contentTxt"));
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return article;
 	}
 
@@ -106,8 +104,35 @@ public class CollectionDAO
 			flag = rs.getInt(1);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return flag;
+	}
+
+//	根据用户查找收藏了自己文章的人
+	public List<Collection> selectByUid(int uid) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "SELECT * FROM collection, article, user WHERE collection.uid = ? AND collection.operate_uid = user.uid AND article.aid = collection.aid";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
+		ResultSet rs = ps.executeQuery();
+
+		List<Collection> collectionList = new ArrayList<>();
+		while(rs.next())
+		{
+			Collection collection = new Collection();
+			collection.setOperateUid(rs.getInt("operate_uid"));
+			collection.setOperateNickname(rs.getString("nickname"));
+			collection.setOperateHeadPic(rs.getString("head_pic"));
+			collection.setAid(rs.getInt("aid"));
+			collection.setTitle(rs.getString("title"));
+			collection.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
+			collectionList.add(collection);
+		}
+
+		DataSource.close(conn, ps, rs);
+		return collectionList;
 	}
 
 //	更新文章的收藏数

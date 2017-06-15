@@ -34,6 +34,14 @@ function ajaxChangeCollection(aid, operate)
                 if(result)
                 {
                     alert(operate + " success!");
+                    if(operate == "add")
+                    {
+                        document.getElementById("collect-number").innerHTML = Number(document.getElementById("collect-number").innerHTML) + 1;
+                    }
+                    else
+                    {
+                        document.getElementById("collect-number").innerHTML = Number(document.getElementById("collect-number").innerHTML) - 1;
+                    }
                 }
             }
         }

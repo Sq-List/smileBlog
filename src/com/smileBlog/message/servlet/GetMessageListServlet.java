@@ -23,6 +23,7 @@ public class GetMessageListServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
+		System.out.println("GetMessageListServlet/post");
 //		ajax
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -30,12 +31,13 @@ public class GetMessageListServlet extends HttpServlet
 
 //		更新某类消息数量为0
 		String classification = request.getParameter("classification");
+		System.out.println(classification);
 
 		try
 		{
 			if(messageDAO.updateNumberOByUid(uid, classification) == 1)
 			{
-				request.getRequestDispatcher("/Get" + classification.substring(0, 1) + classification.substring(1) + "MessageServlet").forward(request, response);
+				request.getRequestDispatcher("/Get" + classification.substring(0, 1).toUpperCase() + classification.substring(1) + "MessageServlet").forward(request, response);
 			}
 		}
 		catch (SQLException e)
@@ -47,18 +49,20 @@ public class GetMessageListServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
+		System.out.println("GetMessageListServlet/get");
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		int uid = ((User)request.getSession().getAttribute("user")).getUid();
 
 //		更新某类消息数量为0
-		String classification = request.getParameter("classification");
+		String classification = "comment";
 
 		try
 		{
 			if(messageDAO.updateNumberOByUid(uid, classification) == 1)
 			{
-				request.getRequestDispatcher("jsp/news.jsp").forward(request, response);
+				request.getRequestDispatcher("jsp/new.jsp").forward(request, response);
 			}
 		}
 		catch (SQLException e)

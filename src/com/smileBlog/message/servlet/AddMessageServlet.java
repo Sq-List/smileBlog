@@ -25,16 +25,17 @@ public class AddMessageServlet extends HttpServlet
 		response.setContentType("text/html;charset=utf-8;");
 		PrintWriter out = response.getWriter();
 
-		int uid = Integer.parseInt(request.getParameter("uid"));
+		int uid = Integer.parseInt(request.getAttribute("uid").toString());
+		System.out.println(request.getAttribute("uid").toString());
 		try
 		{
 			if(messageDAO.add(uid) == 1)
 			{
-				out.write("<script language='javascript'>alert('register success!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+				out.write("<script language='javascript'>alert('register success!');window.location.href='"+request.getContextPath()+"/home';</script>");
 			}
 			else
 			{
-				out.write("<script language='javascript'>alert('register fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+				out.write("<script language='javascript'>alert('register fail!');window.location.href='"+request.getContextPath()+"/home';</script>");
 			}
 		}
 		catch (SQLException e)

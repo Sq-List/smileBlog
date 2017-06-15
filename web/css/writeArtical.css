@@ -21,3 +21,13 @@
   font-weight: 700;
   font-family: sans-serif;
 }
+
+.main-textarea #submitBtn
+{
+  margin-top: 10px;
+  height: 30px;
+  width: 100px;
+  color: #FFFFFF;
+  background: #f9be52;
+  border: none;
+}

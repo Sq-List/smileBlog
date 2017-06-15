@@ -70,6 +70,10 @@
 	font-size: 0.8em;
 }
 
+.abstract{
+  overflow: hidden;
+}
+
 .abstract div{
 	text-align: left;
 	width: 100%;

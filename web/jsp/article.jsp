@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/container.css">
 	<link rel="stylesheet" type="text/css" href="./css/cover.css">
 	<link rel="stylesheet" type="text/css" href="./css/smile.css">
+    <link rel="stylesheet" type="text/css" href="./css/unlogin.css">
 </head>
 <body>
 <div class="container">
@@ -79,27 +80,46 @@
 	</div>
 	<div class="notmenu">&nbsp;</div>
 	<div class="main">
-		<div class="main-search">
-			<input type="search" name="search" value="search" onclick="clearcontent(this)">
-			<div class="icon"><img src="./image/search_icon.png"></div>
-		</div>
+        <form class="main-search" id="to-search" action="./search" method="get">
+            <input type="search" name="search" placeholder="search">
+            <div class="icon" id="searchIcon">
+                <img src="./image/search_icon.png">
+            </div>
+        </form>
 		<div class="main-textarea">
-			<img class="main-picture" src="./image/text1.jpg"></img>
+			<img class="main-picture" src="./image/0.jpg"></img>
 			<div class="textcontent">
                 <div class="text-title">${article.title}</div>
                 <div class="text-date">${article.createTime.year + 1990}-${article.createTime.month + 1}-${article.createTime.date}&nbsp;</div>
 				<div class="text-like">
-					<div id="like">&#10084;</div>
+                    <%--如果登陆了未点赞或者未登录， 则显示不点赞的状态；否则显示点赞状态--%>
+					<c:choose>
+                        <c:when test="${(likeFlag != 0) && (likeFlag != null)}">
+                            <div id="like" style="color: rgb(206, 0, 0)" aid="${article.aid}">&#10084;</div>
+                        </c:when>
+                        <c:otherwise>
+                            <div id="like" aid="${article.aid}">&#10084;</div>
+                        </c:otherwise>
+                    </c:choose>
 					<div id="like-number">${article.likeNumber}</div>
 				</div>
 				<div class="text-collect">
 					<div id="collect">
-						<div class="smiley">
+						<div class="smiley" aid="${article.aid}">
 						    <div class="eyes">
 								<div class="eye1"></div>
 								<div class="eye2"></div>
 							</div>
-						    <div class="mouth"></div>
+                            <%--如果登陆了未收藏或者未登录， 则显示为收藏的状态；否则显示收藏状态--%>
+                            <c:choose>
+                                <c:when test="${(collectionFlag != 0) && (collectionFlag != null)}">
+                                    <div class="mouth" style="width: 12px; height: 6px; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="mouth" style="width: 12px; height: 3px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></div>
+                                </c:otherwise>
+                            </c:choose>
+
 						</div>
 					</div>
 					<div id="collect-number">${article.collectionNumber}</div>
@@ -108,7 +128,7 @@
 				<c:choose>
                     <c:when test="${user.uid == thisUser.uid}">
                         <div class="text-delete">
-                            <input type="button" name="" value="delete">
+                            <input type="button" id="deleteBtn" name="" value="delete">
                         </div>
                     </c:when>
                 </c:choose>
@@ -128,22 +148,24 @@
                     </c:when>
                 </c:choose>
 			</div>
-			<div class="commentlist">
+			<div class="commentlist" id="commentlist">
                 <%--遍历评论列表--%>
                 <c:choose>
-                    <c:when test="${not empty commentList}">
-                        <c:forEach var="i" begin="0" end="${fn:length(userList)}">
-                            <div class="comment">
+                    <c:when test="${not empty article.commentList}">
+                        <c:forEach items="${article.commentList}" var="comment">
+                            <div class="comment" comid="${comment.comid}">
                                 <div class="commentator">
-                                    <div class="person-picture"><img src="${userList[i].headPic}"></div>
-                                    <div class="person-name">${userList[i].nickname}</div>
+                                    <a href="./index?uid=${comment.operateUid}">
+                                        <div class="person-picture"><img src="${comment.operateHeadPic}"></div>
+                                        <div class="person-name">${comment.operateNickname}</div>
+                                    </a>
                                 </div>
                                 <div class="message">
-                                    <div class="time">${commentList[i].createTime.year + 1990}-${commentList[i].createTime.month + 1}-${commentList[i].createTime.date} ${commentList[i].createTime.hours}:${commentList[i].createTime.minutes}</div>
-                                    <div class="content">${commentList[i].content}</div>
+                                    <div class="time">${comment.createTime.year + 1900}-${comment.createTime.month + 1}-${comment.createTime.date} ${comment.createTime.hours}:${comment.createTime.minutes}</div>
+                                    <div class="content">${comment.content}</div>
                                 </div>
                                 <c:choose>
-                                    <c:when test="${(not empty user) && (commentList[i].operateUid == user.uid)}">
+                                    <c:when test="${(not empty user) && (comment.operateUid == user.uid)}">
                                         <div class="deletebutton">
                                             <input type="button" name="" value="delete">
                                         </div>
@@ -166,10 +188,30 @@
         </c:when>
     </c:choose>
 </div>
-<script type="text/javascript" src="./js/article.js"></script>
+<script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="./js/container.js"></script>
 <script type="text/javascript" src="./js/forbidden.js"></script>
-<script type="text/javascript" src="./js/smile.js"></script>
+<script type="text/javascript" src="./js/toSearch.js"></script>
+<c:choose>
+    <c:when test="${not empty user}">
+        <script type="text/javascript" src="./js/article.js"></script>
+        <script type="text/javascript" src="./js/smile.js"></script>
+        <script type="text/javascript" src="./js/container.js"></script>
+    </c:when>
+    <c:otherwise>
+        <script type="text/javascript" src="./js/unlogin.js"></script>
+    </c:otherwise>
+</c:choose>
+<c:choose>
+    <c:when test="${(empty user) || (user.uid != thisUser.uid)}">
+        <script>
+            menuHeadpicture.onclick=function()
+            {
+
+            }
+        </script>
+    </c:when>
+</c:choose>
 <script src="<c:url value="/neditor.parse.js"/>"></script>
 <script type="text/javascript">
     uParse('#text-area', {

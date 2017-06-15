@@ -98,19 +98,45 @@ function writepassword(obj){
 	obj.type="password";
 }
 
-// function setcontainer(){
-// 	var contain=document.createElement("div");
-// 	contain.setAttribute("class","set-container");
-// 	face.appendChild(contain);
-// }
+function logoMove()
+{
+    var $logo = $("#SMILEBLOG");
+    var $face = $("#face");
+    var $some = $("#some");
 
-// function showregister(){
-// 	var =document.createElement("table");
-// }
+    $some.css(
+        {
+            bottom : "500px"
+        }
+    ).animate(
+        {
+            bottom : "10px"
+        }, 1500
+    );
+    $face.css(
+        {
+            top : "1000px"
+        }
+    ).animate(
+        {
+            top : "30px"
+        }, 1500
+    );
+    $logo.css(
+        {
+            left : "1200px"
+        }
+    ).animate(
+        {
+            left : "25px"
+        }, 1500
+    )
+}
 
 $(
     function()
     {
+        logoMove();
         setRegisterBlur();
         setLoginBlur();
 
@@ -127,10 +153,6 @@ $(
                     bool = false;
                 }
                 if(!validateConfirmPassword())
-                {
-                    bool = false;
-                }
-                if(!validateNickname())
                 {
                     bool = false;
                 }
@@ -394,7 +416,7 @@ function validateVerifyCode()
     $.ajax(
         {
             type: "POST",
-            url: "../AjaxValidateVerifyCodeServlet",
+            url: "./AjaxValidateVerifyCodeServlet",
             datatype: "json",
             data: "verifyCode=" + $verifyCode,
             success: function(result)

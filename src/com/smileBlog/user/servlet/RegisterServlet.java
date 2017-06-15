@@ -62,7 +62,7 @@ public class RegisterServlet extends HttpServlet
 			}
 			else
 			{
-				out.write("<script language='javascript'>alert('register fail!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+				out.write("<script language='javascript'>alert('register fail!');window.location.href='"+request.getContextPath()+"/home';</script>");
 			}
 
 //			out.print("true");
@@ -70,7 +70,7 @@ public class RegisterServlet extends HttpServlet
 		catch (SQLException e)
 		{
 //			out.print("false");
-			out.write("<script language='javascript'>alert('register wrong!');window.location.href='"+request.getContextPath()+"/jsp/home.jsp';</script>");
+			out.write("<script language='javascript'>alert('register wrong!');window.location.href='"+request.getContextPath()+"/home';</script>");
 		}
 
 

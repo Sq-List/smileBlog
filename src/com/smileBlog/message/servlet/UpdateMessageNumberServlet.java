@@ -1,6 +1,7 @@
 package com.smileBlog.message.servlet;
 
 import com.smileBlog.message.dao.MessageDAO;
+import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,7 +57,14 @@ public class UpdateMessageNumberServlet extends HttpServlet
 			{
 				if(messageDAO.updateByUid(uid, classification, operate) == 1)
 				{
-					out.print("true");
+					if(classification.equalsIgnoreCase("comment"))
+					{
+						out.print(JSONObject.fromObject(request.getAttribute("comment")));
+					}
+					else
+					{
+						out.print("true");
+					}
 				}
 				else
 				{

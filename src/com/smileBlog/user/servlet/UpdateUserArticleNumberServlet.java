@@ -27,6 +27,7 @@ public class UpdateUserArticleNumberServlet extends HttpServlet
 		PrintWriter out = response.getWriter();
 
 		int uid = ((User)request.getSession().getAttribute("user")).getUid();
+		System.out.println(uid);
 
 		try
 		{

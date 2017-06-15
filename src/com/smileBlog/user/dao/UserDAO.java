@@ -68,7 +68,7 @@ public class UserDAO
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "INSERT INTO `user`(`username`, `password`, `nickname`, `head-pic`) VALUES (?, ?, ?, ?);";
+		String sql = "INSERT INTO user(username, password, nickname, head_pic) VALUES (?, ?, ?, ?);";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, user.getUsername());
 		ps.setString(2, stringMd5(user.getPassword()));
@@ -76,7 +76,8 @@ public class UserDAO
 		ps.setString(4, user.getHeadPic());
 
 		int flag = ps.executeUpdate();
-		conn.close();
+
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
@@ -103,8 +104,8 @@ public class UserDAO
 		ps.setString(2, stringMd5(password));
 		ResultSet rs = ps.executeQuery();
 
-		User user;
-		if(rs.next())
+		User user = null;
+		while(rs.next())
 		{
 			user = new User();
 
@@ -114,12 +115,8 @@ public class UserDAO
 			user.setHeadPic(rs.getString("head_pic"));
 			user.setLable(rs.getString("label"));
 		}
-		else
-		{
-			user = null;
-		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return user;
 	}
 
@@ -131,15 +128,15 @@ public class UserDAO
 		String sql = "SELECT uid FROM user WHERE username = ?;";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
-		ResultSet result = ps.executeQuery();
+		ResultSet rs = ps.executeQuery();
 
 		int uid = 0;
-		while(result.next())
+		while(rs.next())
 		{
-			uid = result.getInt(1);
+			uid = rs.getInt(1);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return uid;
 	}
 
@@ -167,7 +164,7 @@ public class UserDAO
 			user = null;
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return user;
 	}
 
@@ -189,20 +186,39 @@ public class UserDAO
 			user.setNickname(rs.getString("nickname"));
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return user;
 	}
 
 //	更新用户文章数量
 	public int updateArticleNumberByUid(int uid) throws SQLException
 	{
+		System.out.println(uid);
 		conn = DataSource.getConnection();
 
 		String sql = "UPDATE user SET article_number = article_number + 1 WHERE uid = ?;";
 		ps = conn.prepareStatement(sql);
+		ps.setInt(1, uid);
 
-		conn.close();
-		return ps.executeUpdate();
+		int flag = ps.executeUpdate();
+		DataSource.close(conn, ps, null);
+		return flag;
+	}
+
+//	更新用户的信息
+	public int updateUserInfo(User user) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "UPDATE user SET nickname = ?, head_pic = ? WHERE uid = ?";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, user.getNickname());
+		ps.setString(2, user.getHeadPic());
+		ps.setInt(3, user.getUid());
+
+		int flag = ps.executeUpdate();
+		DataSource.close(conn, ps, null);
+		return flag;
 	}
 
 //	模糊搜索用户
@@ -221,14 +237,14 @@ public class UserDAO
 			User user = new User();
 			user.setUid(rs.getInt("uid"));
 			user.setNickname(rs.getString("nickname"));
-			user.setLable(rs.getString("lable"));
+			user.setLable(rs.getString("label"));
 			user.setHeadPic(rs.getString("head_pic"));
 			user.setArticleNumber(rs.getInt("article_number"));
 
 			userList.add(user);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return userList;
 	}
 }

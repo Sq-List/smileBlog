@@ -29,6 +29,7 @@
 	height: 30px;
 	line-height: 30px;
 	border-bottom: 3px solid #f9be52;
+  cursor: pointer;
 }
 
 
@@ -135,17 +136,39 @@
 	margin-left: 100px;
 }*/
 
-.chose input{
-	width: 60px;
-	height: 60px;
-	border-radius: 100%;
-	border: none;
-	line-height: 60px;
-	text-align: center;
-	float: left;
-	margin-left: 50px;
-	background-color: #6C6C6C;
-	color: #FFFFFF;
+/*.chose input{*/
+	/*width: 60px;*/
+	/*height: 60px;*/
+	/*border-radius: 100%;*/
+	/*border: none;*/
+	/*line-height: 60px;*/
+	/*text-align: center;*/
+	/*float: left;*/
+	/*margin-left: 50px;*/
+	/*background-color: #6C6C6C;*/
+	/*color: #FFFFFF;*/
+/*}*/
+
+.chose label
+{
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  border: none;
+  line-height: 60px;
+  text-align: center;
+  float: left;
+  margin-left: 50px;
+  background-color: #6C6C6C;
+  color: #FFFFFF;
+}
+
+.chose span
+{
+  display: inline-block;
+  width: 300px;
+  line-height: 30px;
+  overflow: hidden;
 }
 
 .progress{
@@ -158,11 +181,19 @@
 	margin-top: 20px;
 }
 
-.progress div{
+.progress #progress-line{
 	width: 300px;
 	height: 30px;
 	background-color: #6C6C6C;
 	float: left;
+}
+
+.progress #progress-line #line{
+  float: left;
+  width: 0;
+  height: 100%;
+  background: #ffffff;
+  transition: all 0.5s;
 }
 
 .buttonArr{
