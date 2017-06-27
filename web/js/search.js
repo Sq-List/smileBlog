@@ -38,6 +38,7 @@ function news(obj) {
 }
 
 
+//获取url上参数的值
 function GetQueryString(name)
 {
     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -48,19 +49,22 @@ function GetQueryString(name)
 $(
     function()
     {
+        //获取各个部分的内容
         var $title = $(".title");
         var $author = $(".author");
         var $contentTxt = $(".contentTxt");
 
+        //获取url上关键字
         var searchKey = GetQueryString("search");
         $(".author").removeHighlight();
         console.log(searchKey);
         if(searchKey)
         {
+            //给各个部分的关键字高亮
             $(".title").highlight(searchKey);
             $(".author").highlight(searchKey);
             $(".contextTxt").highlight(searchKey);
         }
 
     }
-)
+);

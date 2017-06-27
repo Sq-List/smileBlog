@@ -16,6 +16,7 @@ public class Article
 	private String title;
 	private String content;
 	private String contentTxt;
+	private int status;
 	private Date createTime;
 	private List<Comment> commentList;
 	private int collectionNumber;
@@ -80,6 +81,16 @@ public class Article
 	public void setContentTxt(String contentTxt)
 	{
 		this.contentTxt = contentTxt;
+	}
+
+	public int getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(int status)
+	{
+		this.status = status;
 	}
 
 	public int getCollectionNumber()

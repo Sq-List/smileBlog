@@ -109,11 +109,11 @@ public class ToolDAO
 		Tool tool = new Tool();
 		while(rs.next())
 		{
-			System.out.println("rs.");
 			tool.setName(name);
 			tool.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
 		}
 
+		DataSource.close(conn, ps, rs);
 		return tool;
 	}
 }

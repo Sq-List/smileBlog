@@ -10,42 +10,42 @@ var cancel=document.getElementsByClassName("cancel")[0];
 //注册
 register.onmouseover=function(){
 	showwords(this);
-}
+};
 
 register.onmouseout=function(){
 	hiddenwords(this);
-}
+};
 register.onclick=function(){
 	//显示注册界面
 	 showregister();
-}
+};
 //登录
 login.onmouseover=function(){
 	showwords(this);
-}
+};
 
 login.onmouseout=function(){
 	hiddenwords(this);
-}
+};
 login.onclick=function(){
 	 showlogin();
-}
+};
 //搜索
 search.onmouseover=function(){
 	showwords1(this);
-}
+};
 
 search.onmouseout=function(){
 	hiddenwords1(this);
-}
+};
 search.onclick=function(){
 	showsearch();
-}
+};
 
 //取消搜索
 cancel.onclick=function(){
 	setsearch.style.display='none';
-}
+};
 //注册、登录显示
 function showwords(obj){
 	obj.children[0].style.opacity = 1;
@@ -100,42 +100,44 @@ function writepassword(obj){
 
 function logoMove()
 {
+    //拿到首页各个部分的结点
     var $logo = $("#SMILEBLOG");
     var $face = $("#face");
     var $some = $("#some");
-
+    //各个结点的动画设置
     $some.css(
         {
-            bottom : "500px"
+            bottom: "500px"
         }
     ).animate(
         {
-            bottom : "10px"
+            bottom: "10px"
         }, 1500
     );
     $face.css(
         {
-            top : "1000px"
+            top: "1000px"
         }
     ).animate(
         {
-            top : "30px"
+            top: "30px"
         }, 1500
     );
     $logo.css(
         {
-            left : "1200px"
+            left: "1200px"
         }
     ).animate(
         {
-            left : "25px"
+            left: "25px"
         }, 1500
     )
-}
+};
 
 $(
     function()
     {
+        //在加载完页面就执行
         logoMove();
         setRegisterBlur();
         setLoginBlur();
@@ -189,7 +191,7 @@ $(
             }
         )
     }
-)
+);
 
 function setRegisterBlur()
 {

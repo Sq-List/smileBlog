@@ -142,6 +142,7 @@ public class UpdateUserInfoServlet extends HttpServlet
 				{
 					if(userDAO.updateUserInfo(user) == 1)
 					{
+						((User)request.getSession().getAttribute("user")).setHeadPic(user.getHeadPic());
 						out.write("<script language='javascript'>alert('update success!');window.location.href='"+request.getContextPath()+"/index';</script>");
 					}
 					else

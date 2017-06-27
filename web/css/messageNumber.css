@@ -1,0 +1,9 @@
+.message-number
+{
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  position: absolute;
+  right: 30%;
+  background: #f9be52;
+}

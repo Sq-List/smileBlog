@@ -12,6 +12,7 @@ public class User
 	private String lable;
 	private String headPic;
 	private int articleNumber;
+	private int status;
 	//	private int messageNumber;
 
 	public int getArticleNumber()
@@ -82,6 +83,16 @@ public class User
 	public void setHeadPic(String headPic)
 	{
 		this.headPic = headPic;
+	}
+
+	public int getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(int status)
+	{
+		this.status = status;
 	}
 }
 

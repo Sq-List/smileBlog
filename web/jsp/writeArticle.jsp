@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/writeArtical.css' />">
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/owner.css' />">
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/container.css"/> ">
+    <link rel="stylesheet" type="text/css" href="./css/messageNumber.css">
 </head>
 <body>
 <div class="container">
@@ -24,7 +25,7 @@
         </div>
         <div class="menu-list">
             <ul>
-                <li><a href="./new" target="_self">NEW</a></li>
+                <li><a href="./new" target="_self">NEW<span id="message-number"></span></a></li>
                 <li><a href="./collection" target="_self">COLLECTION</a></li>
                 <li><a href="./tool" target="_self">TOOL</a></li>
                 <li><a href="./exit" target="_self">EXIT</a></li>
@@ -40,10 +41,11 @@
             </div>
         </form>
 		<div class="main-textarea">
-			<form action="<c:url value='/SubmitArticleServlet' />" id="editor" method="post">
+			<form action="<c:url value='/UpdateUserArticleNumberServlet' />" id="editor" method="post">
 				<input type="text" id="title" name="title" placeholder="填写文章标题">
 				<script id="container" name="content" type="text/plain">请输入正文</script>
                 <input type="hidden" id="contentTxt" name="contentTxt">
+                <input type="hidden" name="operate" value="add">
 				<input type="submit" id="submitBtn" value="发布">
 				<%--<input type="button" onclick="submitArtical()" value="11">--%>
 			</form>
@@ -51,6 +53,11 @@
 	</div>
 </div>
 <script src="<c:url value='/js/jquery-3.2.1.min.js' />" charset="utf-8"></script>
+<c:choose>
+    <c:when test="${not empty user}">
+        <script type="text/javascript" src="./js/messageNumber.js"></script>
+    </c:when>
+</c:choose>
 <script type="text/javascript" src="./js/toSearch.js"></script>
 <script type="text/javascript" src="<c:url value='/js/search.js' />"></script>
 <!-- 配置文件 -->
@@ -76,6 +83,7 @@
     $("form#editor").submit(
         function()
         {
+//          获取文章的文字内容 并写入#contentTxt中提交
             $("#contentTxt").val(UE.getEditor('container').getContentTxt());
             return true;
         }

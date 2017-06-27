@@ -169,6 +169,16 @@
         <url-pattern>/new</url-pattern>
     </servlet-mapping>
 
+    <!--隐藏文章-->
+    <servlet>
+        <servlet-name>HiddenArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.article.servlet.HiddenArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiddenArticleServlet</servlet-name>
+        <url-pattern>/HiddenArticleServlet</url-pattern>
+    </servlet-mapping>
+
     <!--删除文章-->
     <servlet>
         <servlet-name>DeleteArticleServlet</servlet-name>
@@ -415,6 +425,106 @@
     <servlet-mapping>
         <servlet-name>SearchUserServlet</servlet-name>
         <url-pattern>/SearchUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--管理员页面-->
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <!--管理员登录-->
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/AdminLoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--显示用户-->
+    <servlet>
+        <servlet-name>AdminShowUserServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.user.AdminShowUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminShowUserServlet</servlet-name>
+        <url-pattern>/adminIndex</url-pattern>
+    </servlet-mapping>
+
+    <!--限制用户-->
+    <servlet>
+        <servlet-name>AdminLimitUserServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.user.AdminLimitUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLimitUserServlet</servlet-name>
+        <url-pattern>/AdminLimitUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--删除用户-->
+    <servlet>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.user.AdminDeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <url-pattern>/AdminDeleteUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--显示工具-->
+    <servlet>
+        <servlet-name>AdminShowToolServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.tool.AdminShowToolServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminShowToolServlet</servlet-name>
+        <url-pattern>/AdminShowToolServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--删除工具-->
+    <servlet>
+        <servlet-name>AdminDeleteToolServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.tool.AdminDeleteToolServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteToolServlet</servlet-name>
+        <url-pattern>/AdminDeleteToolServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--显示文章-->
+    <servlet>
+        <servlet-name>AdminShowArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.article.AdminShowArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminShowArticleServlet</servlet-name>
+        <url-pattern>/AdminShowArticleServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--删除文章-->
+    <servlet>
+        <servlet-name>AdminDeleteArticleServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.article.AdminDeleteArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteArticleServlet</servlet-name>
+        <url-pattern>/AdminDeleteArticleServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--退出-->
+    <servlet>
+        <servlet-name>AdminExitServlet</servlet-name>
+        <servlet-class>com.smileBlog.admin.servlet.AdminExitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminExitServlet</servlet-name>
+        <url-pattern>/adminExit</url-pattern>
     </servlet-mapping>
 </web-app>
 

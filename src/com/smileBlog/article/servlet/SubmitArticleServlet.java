@@ -29,6 +29,10 @@ public class SubmitArticleServlet extends HttpServlet
 		PrintWriter out = response.getWriter();
 
 		User user = (User) (request.getSession().getAttribute("user"));
+		if(user.getStatus() == 1)
+		{
+			out.write("<script language='javascript'>alert('you have been limit!');window.location.href='"+request.getContextPath()+"/index';</script>");
+		}
 
 		Article article = new Article();
 		article.setTitle(request.getParameter("title"));
@@ -40,9 +44,16 @@ public class SubmitArticleServlet extends HttpServlet
 
 		try
 		{
-			articleDAO.add(article);
+			if(articleDAO.add(article) == 1)
+			{
+				out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
+			}
+			else
+			{
+				out.write("<script language='javascript'>alert('publish fail!');window.location.href='"+request.getContextPath()+"/index';</script>");
+			}
 
-			request.getRequestDispatcher("/UpdateUserArticleNumberServlet").forward(request, response);
+//			request.getRequestDispatcher("/UpdateUserArticleNumberServlet").forward(request, response);
 
 //			out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
 //			response.sendRedirect(request.getContextPath() + "/index");

@@ -133,7 +133,7 @@ h3{
 	display: none;
 }
 
-.users-message{
+.user-message{
 	width: 100%;
 	height: 100px;
 	line-height: 100px;
@@ -265,6 +265,7 @@ h3{
 	line-height: 40px;
 	text-align: center;
 	float: left;
+  overflow: hidden;
 }
 
 .passage-abstract div{
@@ -284,7 +285,9 @@ h3{
 
 .list-message div{
 	float: left;
-	width: 28%;
+  height: 60px;
+	width: 33%;
+  overflow: hidden;
 }
 
 .list-message div:nth-child(3){

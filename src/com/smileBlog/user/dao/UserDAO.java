@@ -114,6 +114,7 @@ public class UserDAO
 			user.setNickname(rs.getString("nickname"));
 			user.setHeadPic(rs.getString("head_pic"));
 			user.setLable(rs.getString("label"));
+			user.setStatus(rs.getInt("status"));
 		}
 
 		DataSource.close(conn, ps, rs);
@@ -191,12 +192,20 @@ public class UserDAO
 	}
 
 //	更新用户文章数量
-	public int updateArticleNumberByUid(int uid) throws SQLException
+	public int updateArticleNumberByUid(int uid, String operate) throws SQLException
 	{
 		System.out.println(uid);
 		conn = DataSource.getConnection();
 
-		String sql = "UPDATE user SET article_number = article_number + 1 WHERE uid = ?;";
+		String sql;
+		if(operate.equalsIgnoreCase("add"))
+		{
+			sql = "UPDATE user SET article_number = article_number + 1 WHERE uid = ?;";
+		}
+		else
+		{
+			sql = "UPDATE user SET article_number = article_number - 1 WHERE uid = ?;";
+		}
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, uid);
 

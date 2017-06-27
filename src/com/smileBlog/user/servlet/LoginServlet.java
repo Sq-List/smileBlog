@@ -58,8 +58,8 @@ public class LoginServlet extends HttpServlet
 			}
 			else
 			{
-				out.write("<script language='javascript'>alert('login fail!');window.location.href='" + request.getContextPath()
-						+ "/home';</script>");
+				out.write("<script language='javascript'>alert('username or password wrong!');window.location.href='" + request.getContextPath()
+					+ "/home';</script>");
 			}
 		}
 		catch (SQLException e)

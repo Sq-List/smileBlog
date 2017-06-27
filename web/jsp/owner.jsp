@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/container.css">
 	<link rel="stylesheet" type="text/css" href="./css/cover.css">
     <link rel="stylesheet" type="text/css" href="./css/unlogin.css">
+    <link rel="stylesheet" type="text/css" href="./css/messageNumber.css">
 </head>
 <body>
 <div class="container">
@@ -65,7 +66,7 @@
                     <c:when test="${user.uid == thisUser.uid}">
                         <div class="menu-list">
                             <ul>
-                                <li><a href="./new" target="_self">NEW</a></li>
+                                <li><a href="./new" target="_self">NEW<span id="message-number"></span></a></li>
                                 <li><a href="./collection" target="_self">COLLECTION</a></li>
                                 <li><a href="./tool" target="_self">TOOL</a></li>
                                 <li><a href="./exit" target="_self">EXIT</a></li>
@@ -104,7 +105,7 @@
             %>
             <c:forEach items="${articleList}" var="article">
                 <div class="text1">
-                    <a href="<c:url value='/article?aid=${article.aid}'/>"><img src="./image/<%= random.nextInt(7)%>.jpg"></img></a>
+                    <a href="<c:url value='/article?aid=${article.aid}'/>"><img src="./image/<%= random.nextInt(8)%>.jpg"></img></a>
                     <div class="title">
                         <div class="time">${article.createTime.year + 1900}-${article.createTime.month + 1}-${article.createTime.date}</div>
                         <div class="titlename">${article.title}</div>
@@ -120,6 +121,11 @@
 <script type="text/javascript" src="./js/forbidden.js"></script>
 <script type="text/javascript" src="./js/unlogin.js"></script>
 <script type="text/javascript" src="./js/toSearch.js"></script>
+<c:choose>
+    <c:when test="${not empty user}">
+        <script type="text/javascript" src="./js/messageNumber.js"></script>
+    </c:when>
+</c:choose>
 <c:choose>
     <c:when test="${(empty user) || (user.uid != thisUser.uid)}">
         <script>

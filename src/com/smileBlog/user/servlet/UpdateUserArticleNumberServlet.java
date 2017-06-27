@@ -23,21 +23,32 @@ public class UpdateUserArticleNumberServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
+		System.out.println("UpdateUserArticleNumberServlet/post");
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
 		int uid = ((User)request.getSession().getAttribute("user")).getUid();
-		System.out.println(uid);
+		String operate = request.getParameter("operate");
+		System.out.println(uid + ": " + operate);
 
 		try
 		{
-			if(userDAO.updateArticleNumberByUid(uid) == 1)
+			if(userDAO.updateArticleNumberByUid(uid, operate) == 1)
 			{
-				out.write("<script language='javascript'>alert('publish success!');window.location.href='"+request.getContextPath()+"/index';</script>");
+				if(operate.equalsIgnoreCase("add"))
+				{
+					request.getRequestDispatcher("/SubmitArticleServlet").forward(request, response);
+				}
+				else
+				{
+					System.out.println(operate);
+					request.getRequestDispatcher("/DeleteArticleServlet").forward(request, response);
+				}
 			}
 			else
 			{
-				out.write("<script language='javascript'>alert('publish fail!');window.location.href='"+request.getContextPath()+"/index';</script>");
+
 			}
 		}
 		catch (SQLException e)

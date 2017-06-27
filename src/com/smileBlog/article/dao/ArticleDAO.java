@@ -17,7 +17,7 @@ public class ArticleDAO
 	private Statement stmt = null;
 	private PreparedStatement ps = null;
 
-	public void add(Article article) throws SQLException
+	public int add(Article article) throws SQLException
 	{
 		conn = DataSource.getConnection();
 
@@ -28,7 +28,11 @@ public class ArticleDAO
 		ps.setString(3, article.getContent());
 		ps.setString(4, article.getContentTxt());
 		ps.setTimestamp(5, new java.sql.Timestamp((new java.util.Date()).getTime()));
-		ps.executeUpdate();
+
+		int flag = ps.executeUpdate();
+		DataSource.close(conn, ps, null);
+
+		return flag;
 	}
 
 //	删除文章
@@ -65,15 +69,25 @@ public class ArticleDAO
 		ps.setInt(1, aid);
 
 		int flag = ps.executeUpdate();
-		conn.close();
+		DataSource.close(conn, ps, null);
 		return flag;
 	}
 
-	public List<Article> selectArticleByUid(int uid) throws SQLException
+	public List<Article> selectArticleByUid(int uid, int flag) throws SQLException
 	{
 		conn = DataSource.getConnection();
 
-		String sql = "SELECT aid, ownuid, title, create_time FROM article WHERE ownuid=?";
+		String sql;
+		if(flag == 1)
+		{
+			System.out.println("all");
+			sql = "SELECT aid, ownuid, title, create_time FROM article WHERE ownuid = ?";
+		}
+		else
+		{
+			sql = "SELECT aid, ownuid, title, create_time FROM article WHERE ownuid = ? AND status = 0;";
+		}
+
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, uid);
 		ResultSet rs = ps.executeQuery();
@@ -91,7 +105,7 @@ public class ArticleDAO
 			System.out.println("aid = " + article.getAid());
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return articleList;
 	}
 
@@ -111,13 +125,14 @@ public class ArticleDAO
 			article.setOwnuid(rs.getInt("ownuid"));
 			article.setTitle(rs.getString("title"));
 			article.setContent(rs.getString("content"));
+			article.setStatus(rs.getInt("status"));
 			article.setCreateTime(new java.util.Date(rs.getTimestamp("create_time").getTime()));
 			article.setCollectionNumber(rs.getInt("collection_number"));
 			article.setLikeNumber(rs.getInt("like_number"));
 			article.setCommentNumber(rs.getInt("comment_number"));
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return article;
 	}
 
@@ -137,7 +152,7 @@ public class ArticleDAO
 			article.setTitle(rs.getString("title"));
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return article;
 	}
 
@@ -169,7 +184,7 @@ public class ArticleDAO
 			article.setTitle(rs.getString("title"));
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return article;
 	}
 
@@ -199,8 +214,32 @@ public class ArticleDAO
 			articleList.add(article);
 		}
 
-		conn.close();
+		DataSource.close(conn, ps, rs);
 		return articleList;
+	}
+
+//	更改文章的显示状态
+	public int changeStatusArticleByAidAndUid(int aid, int uid, String operate) throws SQLException
+	{
+		conn = DataSource.getConnection();
+
+		String sql = "UPDATE article SET status = ? WHERE aid = ? AND ownuid = ?";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(2, aid);
+		ps.setInt(3, uid);
+		if(operate.equalsIgnoreCase("show"))
+		{
+			ps.setInt(1, 0);
+		}
+		else
+		{
+			ps.setInt(1, 1);
+		}
+
+		int flag;
+		flag = ps.executeUpdate();
+		DataSource.close(conn, ps, null);
+		return flag;
 	}
 
 //	public Article getPreArticleByAidAndUid(int aid, int uid) throws SQLException

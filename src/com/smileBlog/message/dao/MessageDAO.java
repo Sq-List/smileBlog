@@ -49,7 +49,7 @@ public class MessageDAO
 		conn = DataSource.getConnection();
 
 		String sql;
-		if(operate.equalsIgnoreCase("delect"))
+		if(operate.equalsIgnoreCase("delete"))
 		{
 			sql = "UPDATE message SET " + classification + "_number = " + classification + "_number - 1 WHERE uid = ?;";
 		}

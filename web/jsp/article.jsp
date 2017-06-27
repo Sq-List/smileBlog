@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/cover.css">
 	<link rel="stylesheet" type="text/css" href="./css/smile.css">
     <link rel="stylesheet" type="text/css" href="./css/unlogin.css">
+    <link rel="stylesheet" type="text/css" href="./css/messageNumber.css">
 </head>
 <body>
 <div class="container">
@@ -67,7 +68,7 @@
                     <c:when test="${user.uid == thisUser.uid}">
                         <div class="menu-list">
                             <ul>
-                                <li><a href="./new" target="_self">NEW</a></li>
+                                <li><a href="./new" target="_self">NEW<span id="message-number"></span></a></li>
                                 <li><a href="./collection" target="_self">COLLECTION</a></li>
                                 <li><a href="./tool" target="_self">TOOL</a></li>
                                 <li><a href="./exit" target="_self">EXIT</a></li>
@@ -87,7 +88,7 @@
             </div>
         </form>
 		<div class="main-textarea">
-			<img class="main-picture" src="./image/0.jpg"></img>
+			<img class="main-picture" src="./image/text.jpg"></img>
 			<div class="textcontent">
                 <div class="text-title">${article.title}</div>
                 <div class="text-date">${article.createTime.year + 1990}-${article.createTime.month + 1}-${article.createTime.date}&nbsp;</div>
@@ -124,10 +125,18 @@
 					</div>
 					<div id="collect-number">${article.collectionNumber}</div>
 				</div>
-                <%--如果文章的作者是登录的用户则显示删除按键--%>
+                <%--如果文章的作者是登录的用户则显示删除、隐藏按键--%>
 				<c:choose>
                     <c:when test="${user.uid == thisUser.uid}">
-                        <div class="text-delete">
+                        <div class="text-btn">
+                            <c:choose>
+                                <c:when test="${article.status == 0}">
+                                    <input type="button" id="hiddenBtn" name="" value="hidden">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="button" id="hiddenBtn" name="" value="show">
+                                </c:otherwise>
+                            </c:choose>
                             <input type="button" id="deleteBtn" name="" value="delete">
                         </div>
                     </c:when>
@@ -136,7 +145,6 @@
 				<div class="text-area" id="text-area">
                     ${article.content}
                 </div>
-				<div class="text-keywords">links:</div>
                 <c:choose>
                     <c:when test="${not empty preArticle}">
                         <div class="text-previous"><a href='<c:url value="/article?aid=${preArticle.aid}"/>'>&#60;&#60;Previous</a></div>
@@ -149,6 +157,7 @@
                 </c:choose>
 			</div>
 			<div class="commentlist" id="commentlist">
+                <div class="text-keywords">comment:</div>
                 <%--遍历评论列表--%>
                 <c:choose>
                     <c:when test="${not empty article.commentList}">
@@ -179,9 +188,9 @@
 			<!-- <div class="commentarea"><input type="text" name="" value="发表评论"></input></div> -->
 		</div>
 	</div>
-    <%--如果未登录则不显示评论框--%>
+    <%--如果未登录或用户被限制则不显示评论框--%>
     <c:choose>
-        <c:when test="${not empty user}">
+        <c:when test="${(not empty user) && (user.status != 1)}">
             <div id="frame">
                 <div class="half" >Say</div>
             </div>
@@ -192,6 +201,11 @@
 <script type="text/javascript" src="./js/container.js"></script>
 <script type="text/javascript" src="./js/forbidden.js"></script>
 <script type="text/javascript" src="./js/toSearch.js"></script>
+<c:choose>
+    <c:when test="${not empty user}">
+        <script type="text/javascript" src="./js/messageNumber.js"></script>
+    </c:when>
+</c:choose>
 <c:choose>
     <c:when test="${not empty user}">
         <script type="text/javascript" src="./js/article.js"></script>
@@ -212,6 +226,7 @@
         </script>
     </c:when>
 </c:choose>
+
 <script src="<c:url value="/neditor.parse.js"/>"></script>
 <script type="text/javascript">
     uParse('#text-area', {

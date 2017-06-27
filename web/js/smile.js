@@ -1,19 +1,19 @@
 //点击笑脸按钮 样式发生变化
-var mouse=document.getElementsByClassName("mouth")[0];
 $(".smiley").click(
     function(){
-        if(mouse.style.height=='6px' || mouse.style.height==''){
-            mouse.style.width='12px';
-            mouse.style.height='3px';
-            mouse.style.borderBottomLeftRadius='0px';
-            mouse.style.borderBottomRightRadius='0px';
+        var month = $(this).children("div.mouth").get(0);
+        if(month.style.height=='6px' || month.style.height==''){
+            month.style.width='12px';
+            month.style.height='3px';
+            month.style.borderBottomLeftRadius='0px';
+            month.style.borderBottomRightRadius='0px';
             ajaxChangeCollection($(this).attr("aid"), "delete");
         }
         else{
-            mouse.style.width='12px';
-            mouse.style.height='6px';
-            mouse.style.borderBottomLeftRadius='6px';
-            mouse.style.borderBottomRightRadius='6px';
+            month.style.width='12px';
+            month.style.height='6px';
+            month.style.borderBottomLeftRadius='6px';
+            month.style.borderBottomRightRadius='6px';
             ajaxChangeCollection($(this).attr("aid"), "add");
         }
     }
@@ -34,13 +34,16 @@ function ajaxChangeCollection(aid, operate)
                 if(result)
                 {
                     alert(operate + " success!");
-                    if(operate == "add")
+                    if(document.getElementById("collect-number") != null)
                     {
-                        document.getElementById("collect-number").innerHTML = Number(document.getElementById("collect-number").innerHTML) + 1;
-                    }
-                    else
-                    {
-                        document.getElementById("collect-number").innerHTML = Number(document.getElementById("collect-number").innerHTML) - 1;
+                        if(operate == "add")
+                        {
+                            document.getElementById("collect-number").innerHTML = Number(document.getElementById("collect-number").innerHTML) + 1;
+                        }
+                        else
+                        {
+                            document.getElementById("collect-number").innerHTML = Number(document.getElementById("collect-number").innerHTML) - 1;
+                        }
                     }
                 }
             }

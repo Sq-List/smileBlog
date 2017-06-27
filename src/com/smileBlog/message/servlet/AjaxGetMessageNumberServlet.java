@@ -28,24 +28,17 @@ public class AjaxGetMessageNumberServlet extends HttpServlet
 
 		User user = ((User)request.getSession().getAttribute("user"));
 
-		int uid;
-		if(user == null)
-		{
-			return ;
-		}
-		else
-		{
-			uid = user.getUid();
-			try
-			{
-				int number = messageDAO.selectByUid(uid);
 
-				out.print(number);
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+		int uid = user.getUid();
+		try
+		{
+			int number = messageDAO.selectByUid(uid);
+
+			out.print(number);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
 		}
 	}
 

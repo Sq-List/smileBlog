@@ -60,8 +60,24 @@ public class GetMessageListServlet extends HttpServlet
 
 		try
 		{
+//			int commentNumber = messageDAO.selectNmuberByUid(uid, "comment");
+			int likeNumber = messageDAO.selectNmuberByUid(uid, "like");
+			int collectionNumber = messageDAO.selectNmuberByUid(uid, "collection");
+
 			if(messageDAO.updateNumberOByUid(uid, classification) == 1)
 			{
+//				request.setAttribute("commentNumber", commentNumber);
+				if(collectionNumber != 0)
+				{
+					System.out.println("setCollection");
+					request.setAttribute("collectionNumber", collectionNumber);
+				}
+				if(likeNumber != 0)
+				{
+					System.out.println("setLike");
+					request.setAttribute("likeNumber", likeNumber);
+				}
+
 				request.getRequestDispatcher("jsp/new.jsp").forward(request, response);
 			}
 		}

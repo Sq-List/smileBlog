@@ -31,7 +31,7 @@ public class UpdateMessageNumberServlet extends HttpServlet
 		int uid = Integer.parseInt(request.getAttribute("uid").toString());
 
 //		int num = 0;
-		System.out.println("updateMessageNumberServlet/post");
+		System.out.println("updateMessageNumberServlet/post : " + operate);
 
 		try
 		{

@@ -85,14 +85,14 @@
 	font-size: 0.8em;
 	padding-left: 20px;
 }
-.text-delete{
+.text-btn{
 	float: right;
 	width: 50%;
 	text-align: right;
 	height: 50px;
 	line-height: 50px;
 }
-.text-delete input{
+.text-btn input{
 	width: 80px;
 	height: 30px;
 	background-color: #f9be52;

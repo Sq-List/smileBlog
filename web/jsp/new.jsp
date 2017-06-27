@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/container.css">
 	<link rel="stylesheet" type="text/css" href="./css/new.css">
 	<link rel="stylesheet" type="text/css" href="./css/cover.css">
+    <link rel="stylesheet" type="text/css" href="./css/messageNumber.css">
 </head>
 <body>
   	<div class="container">
@@ -24,7 +25,7 @@
             </div>
             <div class="menu-list">
                 <ul>
-                    <li><a href="./new" target="_self">NEW</a></li>
+                    <li><a href="./new" target="_self">NEW<span id="message-number"></span></a></li>
                     <li><a href="./collection" target="_self">COLLECTION</a></li>
                     <li><a href="./tool" target="_self">TOOL</a></li>
                     <li><a href="./exit" target="_self">EXIT</a></li>
@@ -41,8 +42,8 @@
             </form>
 			<div id="classify">
 				<div>COMMENT</div>
-				<div>SMILE</div>
-				<div>COLLECTED</div>
+				<div>SMILE <span class="number">${likeNumber}</span></div>
+				<div>COLLECTED <span class="number">${collectionNumber}</span></div>
 			</div>
 			<div class="timelist" id="timelist">
 
@@ -53,6 +54,11 @@
 		</div>
 	</div>
     <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+    <c:choose>
+        <c:when test="${not empty user}">
+            <script type="text/javascript" src="./js/messageNumber.js"></script>
+        </c:when>
+    </c:choose>
 	<script type="text/javascript" src="./js/new.js"></script>
 	<script type="text/javascript" src="./js/container.js"></script>
 	<script type="text/javascript" src="./js/chgopacity.js"></script>
